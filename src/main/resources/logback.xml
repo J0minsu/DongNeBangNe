@@ -1,0 +1,33 @@
+<configuration>
+
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>app.log</file>
+		<encoder>
+			<pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+
+	<logger name="com.silort.swm" level="DEBUG">
+	</logger>
+
+	<!-- he -->
+	<logger name="org.hibernate.SQL" level="DEBUG" />
+	<logger name="org.hibernate.tool.hbm2ddl" level="DEBUG" />
+	<logger name="org.hibernate.type" level="TRACE" />
+	<logger name="org.hibernate.stat" level="DEBUG" />
+	<logger name="org.hibernate.type.BasicTypeRegistry" level="WARN" />
+</configuration> 
