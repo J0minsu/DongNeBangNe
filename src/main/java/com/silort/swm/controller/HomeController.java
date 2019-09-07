@@ -40,29 +40,28 @@ public class HomeController {
 	public ModelAndView homeController() {
 		//he
 		logger.debug("Calling root");
-		User user1 = new User("msjo", "1234", 3);
-		User user2 = new User("jwseo", "1234", 2);
-		User user3 = new User("ymjeong", "1234", 1);
-		
-		Product product1 = new Product("구찌 신발", 30000, 30, "명품 신발", user1);
-		Product product2 = new Product("하겐다즈 신발", 30000, 30, "명품 신발", user2);
-		Product product3 = new Product("티볼리 신발", 30000, 30, "명품 신발", user3);
-		
-		Messenger messenger = new Messenger(user1, user2);
-		
-		MessengerText messengerText = new MessengerText(messenger, user1, "hello");
-		
-		userRepository.save(user1);
-		userRepository.save(user2);
-		userRepository.save(user3);
-
-		productRepository.save(product1);
-		productRepository.save(product2);
-		productRepository.save(product3);
-		
-		messengerRepository.save(messenger);
-		
-		messengerTextRepository.save(messengerText);
+		/*
+		 * User user1 = new User("msjo", "1234", 3); User user2 = new User("jwseo",
+		 * "1234", 2); User user3 = new User("ymjeong", "1234", 1);
+		 * 
+		 * Product product1 = new Product("구찌 신발", 30000, 30, "명품 신발", user1); Product
+		 * product2 = new Product("하겐다즈 신발", 30000, 30, "명품 신발", user2); Product
+		 * product3 = new Product("티볼리 신발", 30000, 30, "명품 신발", user3);
+		 * 
+		 * Messenger messenger = new Messenger(user1, user2);
+		 * 
+		 * MessengerText messengerText = new MessengerText(messenger, user1, "hello");
+		 * 
+		 * userRepository.save(user1); userRepository.save(user2);
+		 * userRepository.save(user3);
+		 * 
+		 * productRepository.save(product1); productRepository.save(product2);
+		 * productRepository.save(product3);
+		 * 
+		 * messengerRepository.save(messenger);
+		 * 
+		 * messengerTextRepository.save(messengerText);
+		 */
 		
 		ModelAndView view = new ModelAndView("test");
 		view.addObject("text", "너는 까까머리~");
