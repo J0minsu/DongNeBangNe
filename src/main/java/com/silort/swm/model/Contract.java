@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name="Contract")
+@Table(name="contract")
 @Getter
 @Setter
 @ToString
@@ -28,34 +28,34 @@ import lombok.ToString;
 public class Contract {
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id
-	@Column(name = "contract_id")
+	//@Id
+	//@Column(name = "contract_id")
 	private int id;
 	//he
-	@Column(name = "price")
+	//@Column(name = "price")
 	private int price;	//총 금액 
 	
-	@Column(name = "times")
+	//@Column(name = "times")
 	private int times;	//방송 횟수 
 	
-	@Column(name = "onePerTime")
+	//@Column(name = "onePerTime")
 	private int onePerTime;	//1회 방송당 시간 
 	
-	@Column(name = "requirement")
+	//@Column(name = "requirement")
 	private String requirement;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "seller_no")
+	//@ManyToOne(cascade=CascadeType.ALL)
+	//@JoinColumn(name = "seller_no")
 	private User seller;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "infliencer_no")
+	//@ManyToOne(cascade=CascadeType.ALL)
+	//@JoinColumn(name = "infliencer_no")
 	private User influencer;
 	
-	@Column(name = "state")
+	//@Column(name = "state")
 	private int state;
 	
-	@Column(name = "contract_date")
+	//@Column(name = "contract_date")
 	private LocalDateTime date;
 
 	public Contract(int price, int times, int onePerTime, String requirement, User seller, User influencer, int state) {

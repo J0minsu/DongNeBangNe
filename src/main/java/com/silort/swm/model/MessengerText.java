@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name="MessengerText")
+@Table(name="messengerText")
 @Getter
 @Setter
 @ToString
@@ -27,22 +27,22 @@ import lombok.ToString;
 public class MessengerText {
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id
-	@Column(name = "messengerText_id")
+	//@Id
+	//@Column(name = "messengerText_id")
 	private int id;
 	
-	@ManyToOne(cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
-	@JoinColumn(name = "messenger_id")
+	//@ManyToOne(cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
+	//@JoinColumn(name = "messenger_id")
 	private Messenger messenger;
 	
-	@ManyToOne(cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
-	@JoinColumn(name = "fromUser_no")
+	//@ManyToOne(cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
+	//@JoinColumn(name = "fromUser_no")
 	private User fromUser;
 	
-	@Column(name = "messengerText")
+	//@Column(name = "messengerText")
 	private String messengerText;
 	//he
-	@Column(name = "time")
+	//@Column(name = "time")
 	private LocalDateTime time;
 
 	@PrePersist

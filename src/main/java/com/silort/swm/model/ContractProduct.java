@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name = "ContractProduct")
+@Table(name = "contractProduct")
 @Entity
 @Getter
 @Setter
@@ -28,11 +28,9 @@ public class ContractProduct {
 	@Column(name = "contractProduct_id")
 	private int id;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "contract_id")
 	private Contract contract;
-	//he
-	@ManyToOne(cascade=CascadeType.ALL)
+	
 	@JoinColumn(name = "product_id")
 	private Product product;
 	

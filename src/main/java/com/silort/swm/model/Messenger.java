@@ -16,7 +16,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "Messenger")
+@Table(name = "messenger")
 @ToString
 @Getter
 @Setter
@@ -24,16 +24,16 @@ import lombok.ToString;
 public class Messenger {
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id
-	@Column(name = "messenger_id")
+	//@Id
+	//@Column(name = "messenger_id")
 	private int id;
 
-	@ManyToOne(cascade =  {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
-	@JoinColumn(name = "user1_no")
+	//@ManyToOne(cascade =  {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
+	//@JoinColumn(name = "user1_no")
 	private User user1;
 	
-	@ManyToOne(cascade =  {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
-	@JoinColumn(name = "user2_no")
+	//@ManyToOne(cascade =  {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
+	//@JoinColumn(name = "user2_no")
 	private User user2;
 	//he
 	public Messenger(User user1, User user2) {

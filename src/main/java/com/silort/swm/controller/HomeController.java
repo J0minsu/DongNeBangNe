@@ -2,20 +2,10 @@ package com.silort.swm.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.silort.swm.model.Messenger;
-import com.silort.swm.model.MessengerText;
-import com.silort.swm.model.Product;
-import com.silort.swm.model.User;
-import com.silort.swm.repo.MessengerRepository;
-import com.silort.swm.repo.MessengerTextRepository;
-import com.silort.swm.repo.ProductRepository;
-import com.silort.swm.repo.UserRepository;
 
 @RestController
 @RequestMapping(value = "/")
@@ -23,18 +13,15 @@ public class HomeController {
 
 	static Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private ProductRepository productRepository;
-	
-	@Autowired
-	private MessengerRepository messengerRepository;
-	
-	@Autowired
-	private MessengerTextRepository messengerTextRepository;
-	
+	/*
+	 * @Autowired private UserRepository userRepository;
+	 * 
+	 * @Autowired private ProductRepository productRepository;
+	 * 
+	 * @Autowired private MessengerRepository messengerRepository;
+	 * 
+	 * @Autowired private MessengerTextRepository messengerTextRepository;
+	 */
 	
 	@GetMapping
 	public ModelAndView homeController() {
