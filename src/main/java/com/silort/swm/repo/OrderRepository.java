@@ -1,5 +1,9 @@
 package com.silort.swm.repo;
 
-public class OrderRepository {
+import org.springframework.data.repository.CrudRepository;
+
+import com.silort.swm.model.Order;
+
+public interface OrderRepository extends CrudRepository<Order, Integer>  {
 
 }

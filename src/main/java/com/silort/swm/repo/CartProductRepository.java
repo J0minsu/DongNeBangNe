@@ -1,5 +1,9 @@
 package com.silort.swm.repo;
 
-public class CartProductRepository {
+import org.springframework.data.repository.CrudRepository;
+
+import com.silort.swm.model.CartProduct;
+
+public interface CartProductRepository extends CrudRepository<CartProduct, Integer>  {
 
 }
