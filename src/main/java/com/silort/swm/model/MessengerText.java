@@ -2,14 +2,11 @@ package com.silort.swm.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -27,35 +24,39 @@ import lombok.ToString;
 public class MessengerText {
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//@Id
-	//@Column(name = "messengerText_id")
+	@Id
+	@Column(name = "msgText_id")
 	private int id;
 	
-	//@ManyToOne(cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
-	//@JoinColumn(name = "messenger_id")
-	private Messenger messenger;
+	@Column(name = "messenger_msg_id")
+	private int messengerId;
+
+	@Column(name = "from_user_id")
+	private int fromUserId;
 	
-	//@ManyToOne(cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
-	//@JoinColumn(name = "fromUser_no")
-	private User fromUser;
+	@Column(name = "to_user_id")
+	private int toUserId;
 	
-	//@Column(name = "messengerText")
-	private String messengerText;
-	//he
-	//@Column(name = "time")
+	@Column(name = "text")
+	private String text;
+	
+	@Column(name = "msgText_date")
 	private LocalDateTime time;
+	
+	@Column(name = "del_at")
+	private LocalDateTime deleteAt;
 
 	@PrePersist
-	public void createdAt() {
+	public void sendAt() {
 		this.time = LocalDateTime.now();
 	}
 	
 
-	public MessengerText(Messenger messenger, User fromUser, String messengerText) {
-		super();
-		this.messenger = messenger;
-		this.fromUser = fromUser;
-		this.messengerText = messengerText;
+	public MessengerText(int messengerId, int fromUserId, int toUserId, String text) {
+		this.messengerId = messengerId;
+		this.fromUserId = fromUserId;
+		this.toUserId = toUserId;
+		this.text = text;
 	}
 	
 	

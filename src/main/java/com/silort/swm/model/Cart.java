@@ -20,7 +20,7 @@ public class Cart {
 
 	@Column(name = "user_id")
 	@Id
-	private int userId;
+	private int id;
 	
 	@Column(name = "product_prod_id")
 	private int productId;

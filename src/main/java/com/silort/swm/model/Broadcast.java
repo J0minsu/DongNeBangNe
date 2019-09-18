@@ -24,7 +24,7 @@ public class Broadcast {
 	@GeneratedValue
 	@Id
 	@Column(name = "brod_id")
-	private int broadcastId;
+	private int id;
 	
 	@Column(name = "channel_ch_id")
 	private int channelId;

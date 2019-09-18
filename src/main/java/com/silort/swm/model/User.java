@@ -1,11 +1,11 @@
 package com.silort.swm.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -25,24 +25,33 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 6033703443868443791L;
 	
 	@Id
-	@Column(name = "no")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int no;
-	
 	@Column(name = "id")
-	private String id;
+	@GeneratedValue
+	private int id;
+	
+	@Column(name = "email")
+	private String email;
 	
 	@Column(name = "password")
 	private String password;
 	
+	@Column(name = "name")
+	private String name;
+	
 	@Column(name = "role") 
 	private int role; 
 	
-	//he
-	public User(String id, String password, int role) {
-		this.id = id;
-		this.password = password;
-		this.role = role;
-	}
+	@Column(name = "gender")
+	private int gender;
+	
+	@Column(name = "age")
+	private int age;
+	
+	@Column(name = "birth")
+	private LocalDateTime birth;
+	
+	@Column(name = "del_at")
+	private LocalDateTime deleteAt;
+	
 	
 }

@@ -1,13 +1,11 @@
 package com.silort.swm.model;
 
-import javax.persistence.CascadeType;
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -23,22 +21,26 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Messenger {
 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//@Id
-	//@Column(name = "messenger_id")
+	@GeneratedValue
+	@Id
+	@Column(name = "msg_id")
 	private int id;
 
-	//@ManyToOne(cascade =  {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
-	//@JoinColumn(name = "user1_no")
-	private User user1;
+	@Column(name = "user1_id")
+	private int user1Id;
 	
-	//@ManyToOne(cascade =  {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
-	//@JoinColumn(name = "user2_no")
-	private User user2;
-	//he
-	public Messenger(User user1, User user2) {
-		this.user1 = user1;
-		this.user2 = user2;
+	@Column(name = "user2_id")
+	private int user2Id;
+	
+	@Column(name = "msg_date")
+	private LocalDateTime messageDate;
+	
+	@Column(name = "del_at")
+	private LocalDateTime deleteDate;
+	
+	public Messenger(int user1Id, int user2Id) {
+		this.user1Id = user1Id;
+		this.user2Id = user2Id;
 	}
 
 	

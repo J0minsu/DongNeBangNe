@@ -22,7 +22,7 @@ public class Channel {
 	@Id
 	@Column(name = "ch_id")
 	@GeneratedValue
-	private int channelId;
+	private int id;
 	
 	@Column(name = "user_id")
 	private int userId;

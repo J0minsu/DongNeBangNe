@@ -1,13 +1,11 @@
 package com.silort.swm.model;
 
-import javax.persistence.CascadeType;
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -22,33 +20,27 @@ import lombok.Setter;
 public class Product {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "product_id")
+	@GeneratedValue
+	@Column(name = "prod_id")
 	private int id;
 
-	@Column(name = "name")
+	@Column(name = "prod_name")
 	private String name;
 	
 	@Column(name = "price")
 	private int price;
 	
-	@Column(name = "unitInStock")
+	@Column(name = "stock")
 	private int unitInStock;
 
 	@Column(name = "description")
 	private String description;
-	//he
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "seller_no")
-	private User seller;
+	
+	@Column(name = "provider_id")
+	private int providerId;
 
-	public Product(String name, int price, int unitInStock, String description, User user) {
-		this.name = name;
-		this.description = description;
-		this.price = price;
-		this.unitInStock = unitInStock;
-		this.seller = user;
-	}
+	@Column(name = "del_at")
+	private LocalDateTime deleteAt;
 	
 	
 }
