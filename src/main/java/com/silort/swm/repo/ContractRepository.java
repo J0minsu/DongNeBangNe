@@ -9,9 +9,9 @@ import com.silort.swm.model.User;
 
 public interface ContractRepository extends CrudRepository<Contract, Integer> {
 
-	List<Contract> findBySeller(User seller);
+	List<Contract> findByProviderId(int providerId);
 	
-	List<Contract> findByInfluencer(User influencer);
+	List<Contract> findByInfluencerId(int influencerId);
 	//he
 	Contract findById(int id);
 }

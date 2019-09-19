@@ -11,7 +11,7 @@ public interface MessengerRepository extends CrudRepository<Messenger, Integer> 
 
 	Messenger findById(int id);
 
-	List<Messenger> findByUser1(User user1);
+	List<Messenger> findByUser1Id(int user1Id);
 	//he
-	List<Messenger> findByUser2(User user2);
+	List<Messenger> findByUser2Id(int user2Id);
 }

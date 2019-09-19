@@ -2,6 +2,7 @@ package com.silort.swm.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -20,6 +21,7 @@ public class Cart {
 
 	@Column(name = "user_id")
 	@Id
+	@GeneratedValue
 	private int id;
 	
 	@Column(name = "product_prod_id")

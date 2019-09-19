@@ -11,10 +11,10 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
 
 	
-	User findUserByNo(int no);
+	User findUserById(int id);
 	
-	@Query("select u.no from User u where u.id = ?1")
-	int findNoById(String id);
+//	@Query("select u.no from User u where u.id = ?1")
+//	int findNoById(int id);
 	//he
 	List<User> findByRole(int role);
 

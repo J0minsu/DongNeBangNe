@@ -35,26 +35,26 @@ public class MessengerTextController {
 	private MessengerRepository messengerRepository;
 
 
-	@GetMapping(value = "/{messengerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<MessengerText>> findMessengerTextsById(@PathVariable int messengerId) {
-		//he
-		logger.debug("Calling get Messenger By Id");
-
-		//해당 messenger 정보 가져온다.
-		Messenger messenger = messengerRepository.findById(messengerId);
-		
-		//client에 넘겨줄 text들을 저장할 리스트 생성.
-		List<MessengerText> list = new ArrayList<MessengerText>();
-		
-		//DB에서 텍스트들을 모조리 가져온다.
-		Iterable<MessengerText> texts = messengerTextRepository.findByMessenger(messenger);
-		
-		//client에 넘겨줄 리스트에 값을 대입한다.
-		texts.forEach(list::add);
-		
-		return new ResponseEntity<List<MessengerText>>(list, HttpStatus.OK);
-
-	}
+//	@GetMapping(value = "/{messengerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<List<MessengerText>> findMessengerTextsById(@PathVariable int messengerId) {
+//		//he
+//		logger.debug("Calling get Messenger By Id");
+//
+//		//해당 messenger 정보 가져온다.
+//		Messenger messenger = messengerRepository.findById(messengerId);
+//		
+//		//client에 넘겨줄 text들을 저장할 리스트 생성.
+//		List<MessengerText> list = new ArrayList<MessengerText>();
+//		
+//		//DB에서 텍스트들을 모조리 가져온다.
+//		Iterable<MessengerText> texts = messengerTextRepository.findByMessenger(messenger);
+//		
+//		//client에 넘겨줄 리스트에 값을 대입한다.
+//		texts.forEach(list::add);
+//		
+//		return new ResponseEntity<List<MessengerText>>(list, HttpStatus.OK);
+//
+//	}
 
 	@PostMapping
 	public ResponseEntity<Void> postMessengerText(@RequestBody MessengerText messengerText) {
@@ -66,3 +66,6 @@ public class MessengerTextController {
 	}
 
 }
+
+
+

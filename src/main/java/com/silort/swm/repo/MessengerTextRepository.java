@@ -9,5 +9,5 @@ import com.silort.swm.model.MessengerText;
 
 public interface MessengerTextRepository extends CrudRepository<MessengerText, Integer> {
 	//he
-	List<MessengerText> findByMessenger(Messenger messenger);
+	List<MessengerText> findByMessengerId(int messengerId);
 }

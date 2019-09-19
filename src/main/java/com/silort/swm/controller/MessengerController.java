@@ -49,26 +49,26 @@ public class MessengerController {
 		return new ResponseEntity<Messenger>(messenger, HttpStatus.OK);
 
 	}
-
-	@GetMapping(value = "/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Messenger>> findMessengerByUserId(@PathVariable String sellerId) {
-
-		logger.debug("Calling get Product By Seller");
-
-		List<Messenger> list = new ArrayList<>();
-
-		// user1 search
-		Iterable<Messenger> iterable = messengerRepository
-				.findByUser1(userRepository.findUserByNo(userRepository.findNoById(sellerId)));
-
-		// user2 search
-		iterable.forEach(list::add);
-		iterable = messengerRepository.findByUser2(userRepository.findUserByNo(userRepository.findNoById(sellerId)));
-		iterable.forEach(list::add);
-
-		return new ResponseEntity<List<Messenger>>(list, HttpStatus.OK);
-
-	}
+//
+//	@GetMapping(value = "/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<List<Messenger>> findMessengerByUserId(@PathVariable String sellerId) {
+//
+//		logger.debug("Calling get Product By Seller");
+//
+//		List<Messenger> list = new ArrayList<>();
+//
+//		// user1 search
+//		Iterable<Messenger> iterable = messengerRepository
+//				.findByUser1(userRepository.findUserByNo(userRepository.findNoById(sellerId)));
+//
+//		// user2 search
+//		iterable.forEach(list::add);
+//		iterable = messengerRepository.findByUser2(userRepository.findUserByNo(userRepository.findNoById(sellerId)));
+//		iterable.forEach(list::add);
+//
+//		return new ResponseEntity<List<Messenger>>(list, HttpStatus.OK);
+//
+//	}
 
 	@PostMapping
 	public ResponseEntity<Void> postMessenger(@RequestBody Messenger messenger) {
@@ -88,63 +88,63 @@ public class MessengerController {
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
-	@DeleteMapping(value = "/user/{userId}")
-	public ResponseEntity<Void> deleteMessngerByUser(@PathVariable String userId) {
-
-		logger.debug("Calling deleteMessengerByUser( )");
-		List<Messenger> list = new ArrayList<>();
-
-		// user1 search
-		Iterable<Messenger> iterable = messengerRepository
-				.findByUser1(userRepository.findUserByNo(userRepository.findNoById(userId)));
-
-		// user2 search
-		iterable.forEach(list::add);
-		iterable = messengerRepository.findByUser2(userRepository.findUserByNo(userRepository.findNoById(userId)));
-		iterable.forEach(list::add);
-
-		for (Messenger messenger : list) {
-			messengerRepository.deleteById(messenger.getId());
-		}
-
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-
-	}
+//	@DeleteMapping(value = "/user/{userId}")
+//	public ResponseEntity<Void> deleteMessngerByUser(@PathVariable String userId) {
+//
+//		logger.debug("Calling deleteMessengerByUser( )");
+//		List<Messenger> list = new ArrayList<>();
+//
+//		// user1 search
+//		Iterable<Messenger> iterable = messengerRepository
+//				.findByUser1(userRepository.findUserByNo(userRepository.findNoById(userId)));
+//
+//		// user2 search
+//		iterable.forEach(list::add);
+//		iterable = messengerRepository.findByUser2(userRepository.findUserByNo(userRepository.findNoById(userId)));
+//		iterable.forEach(list::add);
+//
+//		for (Messenger messenger : list) {
+//			messengerRepository.deleteById(messenger.getId());
+//		}
+//
+//		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+//
+//	}
 	// TestTestTest
 
-	@GetMapping(value = "/{sellerId}/{influencerId}")
-	public ModelAndView createChatting(@PathVariable(value = "sellerId") String sellerId,
-			@PathVariable(value = "influencerId") String influencerId) {
-		//he
-		User seller = userRepository.findUserByNo(userRepository.findNoById(sellerId));
-		User influencer = userRepository.findUserByNo(userRepository.findNoById(influencerId));
-
-		ModelAndView view = new ModelAndView("chatting");
-
-		List<Messenger> list = new ArrayList<>();
-
-		Iterable<Messenger> iterable = messengerRepository.findAll();
-
-		iterable.forEach(list::add);
-
-		boolean trigger = true;
-
-		if (trigger) {
-			for (Messenger messenger : list) {
-				if (messenger.getUser1().equals(seller)) {
-					if (messenger.getUser2().equals(influencer)) {
-						view.addObject("messengerTexts", messengerTextRepository.findByMessenger(messenger));
-						trigger = false;
-					}
-				}
-			}
-		}
-		if (trigger) {
-			Messenger messenger = new Messenger(seller, influencer);
-			messengerRepository.save(messenger);
-			view.addObject("messengerTexts", messengerTextRepository.findByMessenger(messenger));
-		}
-
-		return view;
-	}
+//	@GetMapping(value = "/{sellerId}/{influencerId}")
+//	public ModelAndView createChatting(@PathVariable(value = "sellerId") String sellerId,
+//			@PathVariable(value = "influencerId") String influencerId) {
+//		//he
+//		User seller = userRepository.findUserByNo(userRepository.findNoById(sellerId));
+//		User influencer = userRepository.findUserByNo(userRepository.findNoById(influencerId));
+//
+//		ModelAndView view = new ModelAndView("chatting");
+//
+//		List<Messenger> list = new ArrayList<>();
+//
+//		Iterable<Messenger> iterable = messengerRepository.findAll();
+//
+//		iterable.forEach(list::add);
+//
+//		boolean trigger = true;
+//
+//		if (trigger) {
+//			for (Messenger messenger : list) {
+//				if (messenger.getUser1().equals(seller)) {
+//					if (messenger.getUser2().equals(influencer)) {
+//						view.addObject("messengerTexts", messengerTextRepository.findByMessenger(messenger));
+//						trigger = false;
+//					}
+//				}
+//			}
+//		}
+//		if (trigger) {
+//			Messenger messenger = new Messenger(seller, influencer);
+//			messengerRepository.save(messenger);
+//			view.addObject("messengerTexts", messengerTextRepository.findByMessenger(messenger));
+//		}
+//
+//		return view;
+//	}
 }

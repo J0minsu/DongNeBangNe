@@ -42,17 +42,17 @@ public class UserController {
 
 		return new ResponseEntity<List<User>>(list, HttpStatus.OK);
 	}
-	
-	@GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> findUserById(@PathVariable String userId) {
-		//he
-		logger.debug("Calling findUserById( )");
-		int no = repository.findNoById(userId);
-		
-		User user = repository.findUserByNo(no);
-
-		return new ResponseEntity<User>(user, HttpStatus.OK);
-	}
+//	
+//	@GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<User> findUserById(@PathVariable String userId) {
+//		//he
+//		logger.debug("Calling findUserById( )");
+//		int no = repository.findNoById(userId);
+//		
+//		User user = repository.findUserByNo(no);
+//
+//		return new ResponseEntity<User>(user, HttpStatus.OK);
+//	}
 
 	@GetMapping(value = "/role/{role}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<User>> findUserByRole(@PathVariable int role) {
@@ -62,20 +62,20 @@ public class UserController {
 		List<User> users = repository.findByRole(role);
 		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
 	}
-
-	@PostMapping
-	public ResponseEntity<Void> postUser(@RequestBody User user) {
-		logger.debug("Calling postUser( )");
-
-		String id = user.getId();
-		String password = user.getPassword();
-		int role = (Integer) user.getRole();
-
-		repository.save(new User(id, password, role));
-
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
-	}
-	
+//
+//	@PostMapping
+//	public ResponseEntity<Void> postUser(@RequestBody User user) {
+//		logger.debug("Calling postUser( )");
+//
+//		String id = user.getId();
+//		String password = user.getPassword();
+//		int role = (Integer) user.getRole();
+//
+//		repository.save(new User(id, password, role));
+//
+//		return new ResponseEntity<Void>(HttpStatus.CREATED);
+//	}
+//	
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> updatetUser(@RequestBody User user) {
 		logger.debug("Calling putUser( )");
@@ -86,12 +86,12 @@ public class UserController {
 	}
 
 
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> deleteUser(@PathVariable String id) {
-
-		logger.debug("Calling deleteUser( )");
-		repository.deleteById(repository.findNoById(id));//Delete가 실제로 아닌 개인정보만 삭제..! 로그인 불가하게! 플래그!
-
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-	}
+//	@DeleteMapping(value = "/{id}")
+//	public ResponseEntity<Void> deleteUser(@PathVariable String id) {
+//
+//		logger.debug("Calling deleteUser( )");
+//		repository.deleteById(repository.findNoById(id));//Delete가 실제로 아닌 개인정보만 삭제..! 로그인 불가하게! 플래그!
+//
+//		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+//	}
 }

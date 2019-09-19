@@ -41,35 +41,35 @@ public class ContractProductController {
 	private ProductRepository productRepository;
 
 
-	@GetMapping(value = "/contract/{contractId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ContractProduct>> findContractProductByContractId(@PathVariable int contractId) {
-
-		logger.debug("Calling getAll( )");
-		
-		Contract contract = contractRepository.findById(contractId);
-
-		List<ContractProduct> list = new ArrayList<>();
-		Iterable<ContractProduct> iterable = contractProductRepository.findByContract(contract);
-
-		iterable.forEach(list::add);
-
-		return new ResponseEntity<List<ContractProduct>>(list, HttpStatus.OK);
-	}
-
-	@GetMapping(value = "/product/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ContractProduct>> findContractProductByProductId(@PathVariable int producttId) {
-
-		logger.debug("Calling getAll( )");
-		
-		Product product = productRepository.findById(producttId);
-		
-		List<ContractProduct> list = new ArrayList<>();
-		Iterable<ContractProduct> iterable = contractProductRepository.findByProduct(product);
-
-		iterable.forEach(list::add);
-
-		return new ResponseEntity<List<ContractProduct>>(list, HttpStatus.OK);
-	}
+//	@GetMapping(value = "/contract/{contractId}", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<List<ContractProduct>> findContractProductByContractId(@PathVariable int contractId) {
+//
+//		logger.debug("Calling getAll( )");
+//		
+//		Contract contract = contractRepository.findById(contractId);
+//
+//		List<ContractProduct> list = new ArrayList<>();
+//		Iterable<ContractProduct> iterable = contractProductRepository.findByContract(contract);
+//
+//		iterable.forEach(list::add);
+//
+//		return new ResponseEntity<List<ContractProduct>>(list, HttpStatus.OK);
+//	}
+//
+//	@GetMapping(value = "/product/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<List<ContractProduct>> findContractProductByProductId(@PathVariable int producttId) {
+//
+//		logger.debug("Calling getAll( )");
+//		
+//		Product product = productRepository.findById(producttId);
+//		
+//		List<ContractProduct> list = new ArrayList<>();
+//		Iterable<ContractProduct> iterable = contractProductRepository.findByProduct(product);
+//
+//		iterable.forEach(list::add);
+//
+//		return new ResponseEntity<List<ContractProduct>>(list, HttpStatus.OK);
+//	}
 	
 	@GetMapping(value = "/{contractProductId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ContractProduct> findContractById(@PathVariable int contractProductId) {

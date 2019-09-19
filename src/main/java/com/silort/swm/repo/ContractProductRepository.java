@@ -14,8 +14,8 @@ public interface ContractProductRepository extends CrudRepository<ContractProduc
 	
 	ContractProduct findById(int id);
 	
-	List<ContractProduct> findByContract(Contract contract);
+	List<ContractProduct> findByContractId(int contractId);
 	//he
-	List<ContractProduct> findByProduct(Product product);
+	List<ContractProduct> findByProductId(int productId);
 	
 }

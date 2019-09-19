@@ -25,9 +25,9 @@ public class ContractProduct {
 	private int id;
 	
 	@Column(name = "contract_con_id")
-	private Contract contractId;
+	private int contractId;
 	
 	@Column(name = "product_prod_id")
-	private Product productId;
+	private int productId;
 	
 }

@@ -43,54 +43,54 @@ public class ContractController {
 		return new ResponseEntity<Contract>(contract, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/influencer/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Contract>> findContractByInfluencerId(@PathVariable String userId) {
- 
-		logger.debug("Calling findByRole( )");
-		
-		int influencerNo = userRepository.findNoById(userId);
-		
-		User influencer = userRepository.findUserByNo(influencerNo);
-		
-		List<Contract> contracts = contractRepository.findByInfluencer(influencer);
-		
-		return new ResponseEntity<List<Contract>>(contracts, HttpStatus.OK);
-	}
-	
-	@GetMapping(value = "/seller/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Contract>> findContractBySellerId(@PathVariable String userId) {
- 
-		logger.debug("Calling findByRole( )");
-		
-		int sellerNo = userRepository.findNoById(userId);
-		
-		User seller = userRepository.findUserByNo(sellerNo);
-		
-		List<Contract> contracts = contractRepository.findByInfluencer(seller);
-		
-		return new ResponseEntity<List<Contract>>(contracts, HttpStatus.OK);
-	}
-
-	@PostMapping
-	public ResponseEntity<Void> postContract(@RequestBody Contract contract) {
-		logger.debug("Calling postUser( )");
-
-		//he
-		int price = contract.getPrice();
-		int times = contract.getTimes();
-		int onePerTime = contract.getOnePerTime();
-		String requirement = contract.getRequirement();
-		User seller = contract.getSeller();
-		User influencer = contract.getInfluencer();
-		int state = contract.getState();
-		
-
-		contractRepository.save(
-				new Contract(price, times, onePerTime, requirement, seller, influencer, state));
-
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
-	}
-	
+//	@GetMapping(value = "/influencer/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<List<Contract>> findContractByInfluencerId(@PathVariable String userId) {
+// 
+//		logger.debug("Calling findByRole( )");
+//		
+//		int influencerNo = userRepository.findNoById(userId);
+//		
+//		User influencer = userRepository.findUserByNo(influencerNo);
+//		
+//		List<Contract> contracts = contractRepository.findByInfluencer(influencer);
+//		
+//		return new ResponseEntity<List<Contract>>(contracts, HttpStatus.OK);
+//	}
+//	
+//	@GetMapping(value = "/seller/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<List<Contract>> findContractBySellerId(@PathVariable String userId) {
+// 
+//		logger.debug("Calling findByRole( )");
+//		
+//		int sellerNo = userRepository.findNoById(userId);
+//		
+//		User seller = userRepository.findUserByNo(sellerNo);
+//		
+//		List<Contract> contracts = contractRepository.findByInfluencer(seller);
+//		
+//		return new ResponseEntity<List<Contract>>(contracts, HttpStatus.OK);
+//	}
+//
+//	@PostMapping
+//	public ResponseEntity<Void> postContract(@RequestBody Contract contract) {
+//		logger.debug("Calling postUser( )");
+//
+//		//he
+//		int price = contract.getPrice();
+//		int times = contract.getTimes();
+//		int onePerTime = contract.getOnePerTime();
+//		String requirement = contract.getRequirement();
+//		User seller = contract.getSeller();
+//		User influencer = contract.getInfluencer();
+//		int state = contract.getState();
+//		
+//
+//		contractRepository.save(
+//				new Contract(price, times, onePerTime, requirement, seller, influencer, state));
+//
+//		return new ResponseEntity<Void>(HttpStatus.CREATED);
+//	}
+//	
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> updatetContract(@RequestBody Contract contract) {
 		logger.debug("Calling putUser( )");
