@@ -42,17 +42,16 @@ public class UserController {
 
 		return new ResponseEntity<List<User>>(list, HttpStatus.OK);
 	}
-//	
-//	@GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<User> findUserById(@PathVariable String userId) {
-//		//he
-//		logger.debug("Calling findUserById( )");
-//		int no = repository.findNoById(userId);
-//		
-//		User user = repository.findUserByNo(no);
-//
-//		return new ResponseEntity<User>(user, HttpStatus.OK);
-//	}
+	
+	@GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<User> findUserById(@PathVariable int userId) {
+		//he
+		logger.debug("Calling findUserById( )");
+		
+		User user = repository.findUserById(userId);
+
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
 
 	@GetMapping(value = "/role/{role}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<User>> findUserByRole(@PathVariable int role) {
