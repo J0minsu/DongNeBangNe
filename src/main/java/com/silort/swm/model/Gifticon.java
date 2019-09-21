@@ -1,0 +1,41 @@
+package com.silort.swm.model;
+
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+
+@Table(name = "gifticon")
+@Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+public class Gifticon {
+
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
+	private int id;
+
+	@Column(name = "product_id")
+	private int productId;
+
+	@Column(name = "isUsing")
+	private int isUsing;
+
+	@Column(name = "issue_at")
+	private LocalDateTime issueAt;
+
+	@Column(name = "used_at")
+	private LocalDateTime usedAt;
+}
