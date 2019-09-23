@@ -11,28 +11,35 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
-
-@Table(name = "event")
+@Table(name = "video")
 @Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class Event {
+public class Video {
 
 	
 	@Id
 	@GeneratedValue
-	@Column(name = "event_id")
+	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "event_type")
-	private int eventType;
+	@Column(name = "product_id")
+	private int productId;
 	
-	@Column(name = "broadcast_id")
-	private int broadcastId;
+	@Column(name = "name")
+	private String name;
 	
-	@Column(name = "stock")
-	private int stock;
+	@Column(name = "uploader_id")
+	private int uploaderId;
+	
+	@Column(name = "url")
+	private String url;
+	
+	@Column(name = "category")
+	private int categoty;
+	
+	@Column(name = "description")
+	private String description;
 }

@@ -2,6 +2,8 @@ package com.silort.swm.repo;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface GifticonRepository extends CrudRepository<T, ID> {
+import com.silort.swm.model.Gifticon;
+
+public interface GifticonRepository extends CrudRepository<Gifticon, Integer> {
 
 }
