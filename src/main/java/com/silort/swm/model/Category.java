@@ -11,29 +11,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Table(name = "category")
+@Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-@Table(name="account")
-@Entity
-public class Account {
+public class Category {
 
 	
 	@Id
 	@GeneratedValue
-	@Column(name = "id")
-	private int id;
+	@Column(name = "category_id")
+	private int categoryId;
 	
-	@Column(name = "owner_id")
-	private int ownerId;
+	@Column(name = "category")
+	private String category;
 	
-	@Column(name = "bank_code")
-	private String bankCode;
+	@Column(name = "division")
+	private String division;
 	
-	@Column(name = "number")
-	private String number;
-	
-	@Column(name = "owner_name")
-	private String ownerName;
+	@Column(name = "section")
+	private String section;
 }

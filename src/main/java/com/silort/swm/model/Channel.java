@@ -33,8 +33,8 @@ public class Channel {
 	@Column(name = "follower_num")
 	private int followerNumber;
 	
-	@Column(name = "category")
-	private String category;
+	@Column(name = "category_id")
+	private int categoryId;
 
 	@Column(name = "rating")
 	private float rating;

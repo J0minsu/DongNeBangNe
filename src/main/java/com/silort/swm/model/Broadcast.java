@@ -40,5 +40,11 @@ public class Broadcast {
 
 	@Column(name = "brod_state")
 	private int broadcastState;
+
+	@Column(name = "thumbnail_url")
+	private String thumbnailUrl;
+
+	@Column(name = "url")
+	private String url;
 	
 }

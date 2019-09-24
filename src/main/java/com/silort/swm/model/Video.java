@@ -37,9 +37,12 @@ public class Video {
 	@Column(name = "url")
 	private String url;
 	
-	@Column(name = "category")
-	private int categoty;
+	@Column(name = "category_id")
+	private int categotyId;
 	
 	@Column(name = "description")
 	private String description;
+	
+	@Column(name = "thumbnail_url")
+	private String thumbnailUrl;
 }
