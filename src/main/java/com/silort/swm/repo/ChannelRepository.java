@@ -6,4 +6,6 @@ import com.silort.swm.model.Channel;
 
 public interface ChannelRepository extends CrudRepository<Channel, Integer>  {
 
+	
+	Channel findById(int channelId);
 }
