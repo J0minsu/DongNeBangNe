@@ -24,13 +24,14 @@ public class Cart {
 	@GeneratedValue
 	private int id;
 	
-	@Column(name = "product_prod_id")
-	private int productId;
-	
-	@Column(name = "quantity")
-	private int quantity;
-	
 	@Column(name = "price")
 	private int price;
+
+	public Cart(int quantity, int price) {
+		
+		this.quantity = quantity;
+		this.price = price;
+	}
+	
 	
 }

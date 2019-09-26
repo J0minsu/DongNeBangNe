@@ -39,7 +39,7 @@ import com.silort.swm.repo.UserRepository;
 public class BroadcastController {
 
 	
-	static Logger logger = LoggerFactory.getLogger(ContractController.class);
+	static Logger logger = LoggerFactory.getLogger(BroadcastController.class);
 
 	@Autowired
 	private BroadcastRepository broadcastRepository;
@@ -97,7 +97,6 @@ public class BroadcastController {
 	{
 		logger.debug("Calling postBroadcast( )");
 
-		int id = (Integer) broadcast.getId();
 		int channelId = (Integer) broadcast.getChannelId();
 		int productId = (Integer) broadcast.getProductId();
 		String title = broadcast.getTitle();
@@ -106,7 +105,7 @@ public class BroadcastController {
 		String thumdnailUrl = broadcast.getThumbnailUrl();
 		String url = broadcast.getUrl();
 
-		broadcastRepository.save(new Broadcast(id, channelId, productId, title,
+		broadcastRepository.save(new Broadcast(channelId, productId, title,
 				time, broadcastState, thumdnailUrl, url));
 
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
@@ -167,7 +166,7 @@ public class BroadcastController {
 	@PutMapping
 	public ResponseEntity<Void> updateBroadcast(@RequestBody Broadcast broadcast) {
 		
-		logger.debug("Calling offBroadcast( )");
+		logger.debug("Calling updateBroadcast( )");
 
 		Broadcast beforeBroadcast = broadcastRepository.findById(broadcast.getId());
 		

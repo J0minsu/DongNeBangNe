@@ -6,4 +6,5 @@ import com.silort.swm.model.Cart;
 
 public interface CartRepository extends CrudRepository<Cart, Integer>  {
 
+	Cart findCartByUserId(int userId);
 }

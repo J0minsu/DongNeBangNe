@@ -48,5 +48,17 @@ public class Broadcast {
 
 	@Column(name = "url")
 	private String url;
+
+	public Broadcast(int channelId, int productId, String title, LocalDateTime broadcastDate, int broadcastState,
+			String thumbnailUrl, String url) {
+		this.channelId = channelId;
+		this.productId = productId;
+		this.title = title;
+		this.broadcastDate = broadcastDate;
+		this.broadcastState = broadcastState;
+		this.thumbnailUrl = thumbnailUrl;
+		this.url = url;
+	}
+	
 	
 }
