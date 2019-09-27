@@ -8,4 +8,6 @@ public interface ChannelRepository extends CrudRepository<Channel, Integer>  {
 
 	
 	Channel findById(int channelId);
+	
+	Channel findByUserId(int userId);
 }

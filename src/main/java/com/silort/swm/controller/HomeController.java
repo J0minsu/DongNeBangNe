@@ -2,10 +2,14 @@ package com.silort.swm.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.silort.swm.model.MessengerText;
+import com.silort.swm.repo.MessengerTextRepository;
 
 @RestController
 @RequestMapping(value = "/")
@@ -13,15 +17,10 @@ public class HomeController {
 
 	static Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-	/*
-	 * @Autowired private UserRepository userRepository;
-	 * 
-	 * @Autowired private ProductRepository productRepository;
-	 * 
-	 * @Autowired private MessengerRepository messengerRepository;
-	 * 
-	 * @Autowired private MessengerTextRepository messengerTextRepository;
-	 */
+
+	@Autowired
+	private MessengerTextRepository repository;
+
 	
 	@GetMapping
 	public ModelAndView homeController() {
@@ -49,6 +48,7 @@ public class HomeController {
 		 * 
 		 * messengerTextRepository.save(messengerText);
 		 */
+		repository.save(new MessengerText(1, 1, 1, "hello"));
 		
 		ModelAndView view = new ModelAndView("test");
 		view.addObject("text", "너는 까까머리~");

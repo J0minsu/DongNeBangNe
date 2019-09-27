@@ -23,7 +23,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class MessengerText {
 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
 	@Id
 	@Column(name = "msgText_id")
 	private int id;

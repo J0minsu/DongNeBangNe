@@ -21,15 +21,14 @@ public class Cart {
 
 	@Column(name = "user_id")
 	@Id
-	@GeneratedValue
 	private int id;
+	
 	
 	@Column(name = "price")
 	private int price;
 
-	public Cart(int quantity, int price) {
+	public Cart(int userId, int price) {
 		
-		this.quantity = quantity;
 		this.price = price;
 	}
 	

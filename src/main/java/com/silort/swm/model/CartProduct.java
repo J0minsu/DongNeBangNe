@@ -33,4 +33,13 @@ public class CartProduct {
 	
 	@Column(name = "quantity")
 	private int quantity;
+
+	public CartProduct(int productId, int cartId, int quantity) {
+
+		this.productId = productId;
+		this.cartId = cartId;
+		this.quantity = quantity;
+	}
+	
+	
 }

@@ -82,15 +82,15 @@ public class BroadcastController {
 		return new ResponseEntity<List<Broadcast>>(list, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/schedules/{yearMonthDay}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Broadcast>> findBroadcastsByDay(@PathVariable int yearMonthDay) {
-
-		logger.debug("Calling findBroadcastByDay( )");
-		
-		List<Broadcast> list = broadcastRepository.findBroadcastByDay(yearMonthDay);
-		
-		return new ResponseEntity<List<Broadcast>>(list, HttpStatus.OK);
-	}
+//	@GetMapping(value = "/schedules/{yearMonthDay}", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<List<Broadcast>> findBroadcastsByDay(@PathVariable String yearMonthDay) {
+//
+//		logger.debug("Calling findBroadcastByDay( )");
+//		
+//		List<Broadcast> list = broadcastRepository.findBroadcastByDay(yearMonthDay);
+//		
+//		return new ResponseEntity<List<Broadcast>>(list, HttpStatus.OK);
+//	}
 	
 	@PostMapping
 	public ResponseEntity<Void> postBroadcast(@RequestBody Broadcast broadcast) 
@@ -99,13 +99,14 @@ public class BroadcastController {
 
 		int channelId = (Integer) broadcast.getChannelId();
 		int productId = (Integer) broadcast.getProductId();
+		int categoryId = (Integer) broadcast.getCategoryId();
 		String title = broadcast.getTitle();
 		LocalDateTime time = broadcast.getBroadcastDate();
 		int broadcastState = 0;
 		String thumdnailUrl = broadcast.getThumbnailUrl();
 		String url = broadcast.getUrl();
 
-		broadcastRepository.save(new Broadcast(channelId, productId, title,
+		broadcastRepository.save(new Broadcast(channelId, productId, categoryId,title,
 				time, broadcastState, thumdnailUrl, url));
 
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
