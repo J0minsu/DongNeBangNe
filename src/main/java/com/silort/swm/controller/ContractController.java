@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.silort.swm.model.Contract;
-import com.silort.swm.model.User;
 import com.silort.swm.repo.ContractRepository;
 import com.silort.swm.repo.UserRepository;
 
@@ -43,57 +43,49 @@ public class ContractController {
 		return new ResponseEntity<Contract>(contract, HttpStatus.OK);
 	}
 
-//	@GetMapping(value = "/influencer/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<List<Contract>> findContractByInfluencerId(@PathVariable String userId) {
-// 
-//		logger.debug("Calling findByRole( )");
-//		
-//		int influencerNo = userRepository.findNoById(userId);
-//		
-//		User influencer = userRepository.findUserByNo(influencerNo);
-//		
-//		List<Contract> contracts = contractRepository.findByInfluencer(influencer);
-//		
-//		return new ResponseEntity<List<Contract>>(contracts, HttpStatus.OK);
-//	}
-//	
-//	@GetMapping(value = "/seller/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<List<Contract>> findContractBySellerId(@PathVariable String userId) {
-// 
-//		logger.debug("Calling findByRole( )");
-//		
-//		int sellerNo = userRepository.findNoById(userId);
-//		
-//		User seller = userRepository.findUserByNo(sellerNo);
-//		
-//		List<Contract> contracts = contractRepository.findByInfluencer(seller);
-//		
-//		return new ResponseEntity<List<Contract>>(contracts, HttpStatus.OK);
-//	}
-//
-//	@PostMapping
-//	public ResponseEntity<Void> postContract(@RequestBody Contract contract) {
-//		logger.debug("Calling postUser( )");
-//
-//		//he
-//		int price = contract.getPrice();
-//		int times = contract.getTimes();
-//		int onePerTime = contract.getOnePerTime();
-//		String requirement = contract.getRequirement();
-//		User seller = contract.getSeller();
-//		User influencer = contract.getInfluencer();
-//		int state = contract.getState();
-//		
-//
-//		contractRepository.save(
-//				new Contract(price, times, onePerTime, requirement, seller, influencer, state));
-//
-//		return new ResponseEntity<Void>(HttpStatus.CREATED);
-//	}
-//	
+	@GetMapping(value = "/influencer/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Contract>> findContractByInfluencerId(@PathVariable int userId) {
+ 
+		logger.debug("Calling finContractdByInfluencerId( )");
+		
+		List<Contract> contracts = contractRepository.findByInfluencerId(userId);
+		
+		return new ResponseEntity<List<Contract>>(contracts, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/seller/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Contract>> findContractByProviderId(@PathVariable int userId) {
+ 
+		logger.debug("Calling finContractdByProviderId( )");
+		
+		List<Contract> contracts = contractRepository.findByProviderId(userId);
+		
+		return new ResponseEntity<List<Contract>>(contracts, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/product/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Contract>> findContractByPrductId(@PathVariable int productId) {
+ 
+		logger.debug("Calling finContractdByProductId( )");
+		
+		List<Contract> contracts = contractRepository.findByProductId(productId);
+		
+		return new ResponseEntity<List<Contract>>(contracts, HttpStatus.OK);
+	}
+
+
+	@PostMapping
+	public ResponseEntity<Void> postContract(@RequestBody Contract contract) {
+		logger.debug("Calling postContract( )");
+
+		contract.setState(1);
+		contractRepository.save(contract);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
+	}
+	
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> updatetContract(@RequestBody Contract contract) {
-		logger.debug("Calling putUser( )");
+		logger.debug("Calling updateContract( )");
 		
 		contractRepository.save(contract);
 
@@ -101,12 +93,12 @@ public class ContractController {
 	}
 
 
-	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> cancelContract(@PathVariable int id) {
+	@DeleteMapping(value = "/{contractId}")
+	public ResponseEntity<Void> cancelContract(@PathVariable int contractId) {
 
-		logger.debug("Calling deleteUser( )");
+		logger.debug("Calling cancelContract( )");
 		
-		Contract contract = contractRepository.findById(id);
+		Contract contract = contractRepository.findById(contractId);
 		contract.setState(0);	//계약 무효 플래그
 		contractRepository.save(contract);
 

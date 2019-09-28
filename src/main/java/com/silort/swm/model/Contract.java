@@ -37,6 +37,9 @@ public class Contract {
 	
 	@Column(name = "provider_id")
 	private int providerId;
+
+	@Column(name = "product_id")
+	private int productId;
 	
 	@Column(name = "times")
 	private int times;
