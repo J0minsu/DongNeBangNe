@@ -12,8 +12,8 @@ public interface BroadcastRepository extends CrudRepository<Broadcast, Integer> 
 
 	List<Broadcast> findBroadcastByCategoryId(int categoryId);
 
-	@Query("from Broadcast b where lower(b.brod_date) and b.brod_date < '?1'")
-	List<Broadcast> findBroadcastByDay(String yearMonthDay);
+	@Query("from Broadcast b where lower(b.brod_date) and b.brod_date < ':yearMonthDay'")
+	List<Broadcast> findBroadcastByDay(@Param("yearMonthDay")String yearMonthDay);
 	
 	Broadcast findById(int broadcastId);
 }
