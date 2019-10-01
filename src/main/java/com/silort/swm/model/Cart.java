@@ -23,7 +23,19 @@ public class Cart {
 	@Id
 	private int id;
 	
+	@Column(name = "product01_id")
+	private int product01Id;
 	
+	@Column(name = "product01_quantity")
+	private int product01Quantity;
+	
+	@Column(name = "product02_id")
+	private int product02Id;
+	
+	@Column(name = "product02_quantity")
+	private int product02Quantity;
+	
+		
 	@Column(name = "price")
 	private int price;
 
@@ -31,6 +43,5 @@ public class Cart {
 		
 		this.price = price;
 	}
-	
 	
 }

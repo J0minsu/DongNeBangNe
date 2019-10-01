@@ -35,10 +35,35 @@ public class Order {
 
 	@Column(name = "time")
 	private LocalDateTime time;
+
+	@Column(name = "product01_id")
+	private int product01Id;
+	
+	@Column(name = "product01_quantity")
+	private int product01Q;	
+
+	@Column(name = "product02_id")
+	private int product02Id;
+	
+	@Column(name = "product02_quantity")
+	private int product02wQ;
+	
 	
 	@PrePersist
 	public void orderAt() {
 		this.time = LocalDateTime.now();
+	}
+
+
+	public Order(int userId, int price, int product01Id, int product01Quantity, int product02Id,
+			int product02Quantity) {
+		
+		this.userId = userId;
+		this.totalPrice = price;
+		this.product01Id = product01Id;
+		this.product01Q = product01Quantity;
+		this.product02Id = product02Id;
+		this.product02wQ = product02Quantity;
 	}
 	
 }

@@ -53,5 +53,8 @@ public class User implements Serializable{
 	@Column(name = "del_at")
 	private LocalDateTime deleteAt;
 	
+	@Column(name = "balance")
+	private int balance;
+	
 	
 }
