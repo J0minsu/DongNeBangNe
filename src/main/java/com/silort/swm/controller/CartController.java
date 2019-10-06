@@ -97,7 +97,7 @@ public class CartController {
 
 	}
 
-	@PostMapping(value = "carts/add")
+	@PostMapping(value = "/adding")
 	public ResponseEntity<String> addIteminCart(@RequestParam List<String> parameters) {
 		//[0] userId, [1] productId, [2] productQuantity
 
