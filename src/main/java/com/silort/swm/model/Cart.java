@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "cart")
+@Table(name = "\"cart\"")
 @Getter
 @Setter
 @ToString
@@ -35,9 +36,14 @@ public class Cart {
 	@Column(name = "product02_quantity")
 	private int product02Quantity;
 	
-		
 	@Column(name = "price")
 	private int price;
+	
+	@Transient
+	private Product product01;
+
+	@Transient
+	private Product product02;
 
 	public Cart(int userId, int price) {
 		

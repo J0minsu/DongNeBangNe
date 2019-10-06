@@ -45,5 +45,8 @@ public class Product {
 	@Column(name = "del_at")
 	private LocalDateTime deleteAt;
 	
+	@Column(name = "image_url")
+	private String imageUrl;
+	
 	
 }

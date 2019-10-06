@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -56,6 +57,14 @@ public class Contract {
 	@Column(name = "con_date")
 	private LocalDateTime contractDate;
 	
+	@Transient
+	private Product product;
+
+	@Transient
+	private User influencer;
+	
+	@Transient
+	private User provider;
 	
 	@PrePersist
 	public void createdContract() {

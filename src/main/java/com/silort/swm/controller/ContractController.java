@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.silort.swm.model.Contract;
+import com.silort.swm.model.Product;
+import com.silort.swm.model.User;
 import com.silort.swm.repo.ContractRepository;
+import com.silort.swm.repo.ProductRepository;
 import com.silort.swm.repo.UserRepository;
 
 @RestController
@@ -33,12 +36,16 @@ public class ContractController {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private ProductRepository productRepository;
 	
 	@GetMapping(value = "/{contractId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Contract> findContractById(@PathVariable int contractId) {
 
 		logger.debug("Calling findUserById( )");
 		Contract contract = contractRepository.findById(contractId);
+		
+		setContract(contract);
 		
 		return new ResponseEntity<Contract>(contract, HttpStatus.OK);
 	}
@@ -50,6 +57,10 @@ public class ContractController {
 		
 		List<Contract> contracts = contractRepository.findByInfluencerId(userId);
 		
+		for(Contract contract : contracts) 
+			setContract(contract);
+			
+		
 		return new ResponseEntity<List<Contract>>(contracts, HttpStatus.OK);
 	}
 	
@@ -60,6 +71,9 @@ public class ContractController {
 		
 		List<Contract> contracts = contractRepository.findByProviderId(userId);
 		
+		for(Contract contract : contracts) 
+			setContract(contract);
+		
 		return new ResponseEntity<List<Contract>>(contracts, HttpStatus.OK);
 	}
 	
@@ -69,6 +83,9 @@ public class ContractController {
 		logger.debug("Calling finContractdByProductId( )");
 		
 		List<Contract> contracts = contractRepository.findByProductId(productId);
+
+		for(Contract contract : contracts) 
+			setContract(contract);
 		
 		return new ResponseEntity<List<Contract>>(contracts, HttpStatus.OK);
 	}
@@ -103,5 +120,11 @@ public class ContractController {
 		contractRepository.save(contract);
 
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
+	
+	private void setContract(Contract contract) {
+		contract.setProduct(productRepository.findById(contract.getProductId()));
+		contract.setInfluencer(userRepository.findUserById(contract.getInfluencerId()));
+		contract.setProvider(userRepository.findUserById(contract.getProviderId()));
 	}
 }

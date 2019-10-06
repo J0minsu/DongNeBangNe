@@ -49,6 +49,16 @@ public class CartController {
 		logger.debug("Calling findCartByUserId( )");
 
 		Cart cart = cartRepository.findCartById(userId);
+		
+		if(cart.getProduct01Id() != 0) {
+			Product product01 = productRepository.findById(cart.getProduct01Id());
+			cart.setProduct01(product01);
+		}
+		
+		if(cart.getProduct02Id() != 0) {
+			Product product02 = productRepository.findById(cart.getProduct02Id());
+			cart.setProduct02(product02);
+		}
 
 		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
 	}
@@ -111,6 +121,7 @@ public class CartController {
 				cart.setProduct01Id(productId);
 				cart.setProduct01Quantity(productQ);
 				cart.setPrice(cart.getPrice() + (product.getPrice() * productQ));
+				cart.setProduct01(product);
 				
 				return new ResponseEntity<String>(msg, HttpStatus.OK);
 			}
@@ -157,5 +168,7 @@ public class CartController {
 		cart.setProduct01Quantity(0);
 		cart.setProduct02Id(0);
 		cart.setProduct02Quantity(0);
+		cart.setProduct01(null);
+		cart.setProduct02(null);
 	}
 }

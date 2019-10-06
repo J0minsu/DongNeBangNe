@@ -82,15 +82,17 @@ public class BroadcastController {
 		return new ResponseEntity<List<Broadcast>>(list, HttpStatus.OK);
 	}
 	
-//	@GetMapping(value = "/schedules/{yearMonthDay}", produces = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<List<Broadcast>> findBroadcastsByDay(@PathVariable String yearMonthDay) {
-//
-//		logger.debug("Calling findBroadcastByDay( )");
-//		
-//		List<Broadcast> list = broadcastRepository.findBroadcastByDay(yearMonthDay);
-//		
-//		return new ResponseEntity<List<Broadcast>>(list, HttpStatus.OK);
-//	}
+	@GetMapping(value = "/schedules/{yearMonthDay}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Broadcast>> findBroadcastsByDay(@PathVariable String yearMonthDay) {
+
+		logger.debug("Calling findBroadcastByDay( )");
+		
+		LocalDateTime time = LocalDateTime.parse(yearMonthDay);
+		
+		List<Broadcast> list = broadcastRepository.findBroadcastByBroadcastDateStartingWith(time);
+		
+		return new ResponseEntity<List<Broadcast>>(list, HttpStatus.OK);
+	}
 	
 	@PostMapping
 	public ResponseEntity<Void> postBroadcast(@RequestBody Broadcast broadcast) 
