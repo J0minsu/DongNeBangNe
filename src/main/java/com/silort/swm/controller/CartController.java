@@ -108,6 +108,7 @@ public class CartController {
 		Cart cart =cartRepository.findCartById(userId);
 		Product product = productRepository.findById(productId);
 		
+		//testing ....
 		String msg = "success";
 		
 		if(cart.getProduct01Id() == 0) {
