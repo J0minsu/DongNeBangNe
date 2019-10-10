@@ -1,5 +1,6 @@
 package com.silort.swm.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -92,21 +93,23 @@ public class ContractController {
 
 
 	@PostMapping
-	public ResponseEntity<Void> postContract(@RequestBody Contract contract) {
+	public ResponseEntity<Contract> postContract(@RequestBody Contract contract) {
 		logger.debug("Calling postContract( )");
 
 		contract.setState(1);
 		contractRepository.save(contract);
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
+		
+		setContract(contract);
+		return new ResponseEntity<Contract>(contract, HttpStatus.CREATED);
 	}
 	
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> updatetContract(@RequestBody Contract contract) {
+	public ResponseEntity<Contract> updatetContract(@RequestBody Contract contract) {
 		logger.debug("Calling updateContract( )");
 		
 		contractRepository.save(contract);
 
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
+		return new ResponseEntity<Contract>(contract, HttpStatus.CREATED);
 	}
 
 
@@ -117,6 +120,7 @@ public class ContractController {
 		
 		Contract contract = contractRepository.findById(contractId);
 		contract.setState(0);	//계약 무효 플래그
+		contract.setDeleteAt(LocalDateTime.now());
 		contractRepository.save(contract);
 
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

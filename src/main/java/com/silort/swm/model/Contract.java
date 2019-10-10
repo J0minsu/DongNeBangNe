@@ -25,7 +25,7 @@ import lombok.ToString;
 
 public class Contract {
 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
 	@Id
 	@Column(name = "cont_id")
 	private int id;
@@ -56,6 +56,9 @@ public class Contract {
 	
 	@Column(name = "con_date")
 	private LocalDateTime contractDate;
+	
+	@Column(name = "del_at")
+	private LocalDateTime deleteAt;
 	
 	@Transient
 	private Product product;
