@@ -64,18 +64,18 @@ public class CartController {
 	}
 
 	@PostMapping(value = "/{userId}")
-	public ResponseEntity<Void> postCart(@PathVariable int userId) {
+	public ResponseEntity<Cart> postCart(@PathVariable int userId) {
 		logger.debug("Calling postCart( )");
 
 		Cart postCart = new Cart(userId, 0);
-
+		setProduct(postCart);
 		cartRepository.save(postCart);
 
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
+		return new ResponseEntity<Cart>(postCart, HttpStatus.CREATED);
 	}
 
 	@PostMapping(value = "/buying/{userId}")
-	public ResponseEntity<Void> buyingCart(@PathVariable int userId) {
+	public ResponseEntity<Order> buyingCart(@PathVariable int userId) {
 
 		logger.debug("Calling buyingCart( )");
 
@@ -85,20 +85,27 @@ public class CartController {
 		user.setBalance(user.getBalance() - buyingCart.getPrice());
 
 		userRepository.save(user);
+		System.out.println("user info refresh");
+		
+		Order order = new Order(userId, buyingCart.getPrice(), buyingCart.getProduct01Id(),
+				buyingCart.getProduct01Quantity(), buyingCart.getProduct02Id(), buyingCart.getProduct02Quantity());
 
-		orderRepository.save(new Order(userId, buyingCart.getPrice(), buyingCart.getProduct01Id(),
-				buyingCart.getProduct01Quantity(), buyingCart.getProduct02Id(), buyingCart.getProduct02Quantity()));
-
+		order.setProduct01(buyingCart.getProduct01());
+		order.setProduct02(buyingCart.getProduct02());
+		orderRepository.save(order);
+		
+		System.out.println("order making");
 		resetCart(buyingCart);
 
+		System.out.println("cart init");
 		cartRepository.save(buyingCart);
-
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		System.out.println("end cart init");
+		return new ResponseEntity<Order>(order,HttpStatus.OK);
 
 	}
 
 	@PostMapping(value = "/adding")
-	public ResponseEntity<String> addIteminCart(@RequestParam List<String> parameters) {
+	public ResponseEntity<Cart> addIteminCart(@RequestParam List<String> parameters) {
 		//[0] userId, [1] productId, [2] productQuantity
 
 		int userId = Integer.parseInt(parameters.get(0));
@@ -108,16 +115,14 @@ public class CartController {
 		Cart cart =cartRepository.findCartById(userId);
 		Product product = productRepository.findById(productId);
 		
-		//testing ....
-		String msg = "success";
-		
 		if(cart.getProduct01Id() == 0) {
 			if(cart.getProduct02Id() == productId) {
 				cart.setProduct02Quantity(cart.getProduct02Quantity() + productQ);
 				cart.setPrice(cart.getPrice() + (product.getPrice() * productQ));
 				System.out.println("I'm 01 = empty, 02 = productId");
+				setProduct(cart);
 				cartRepository.save(cart);
-				return new ResponseEntity<String>(msg, HttpStatus.OK);
+				return new ResponseEntity<Cart>(cart, HttpStatus.OK);
 			}
 			else {
 				cart.setProduct01Id(productId);
@@ -125,49 +130,54 @@ public class CartController {
 				cart.setPrice(cart.getPrice() + (product.getPrice() * productQ));
 				cart.setProduct01(product);
 				System.out.println("I'm 01 = empty, 02 != productId");
+				setProduct(cart);
 				cartRepository.save(cart);
-				return new ResponseEntity<String>(msg, HttpStatus.OK);
+				return new ResponseEntity<Cart>(cart, HttpStatus.OK);
 			}
 		}
 		else if(cart.getProduct01Id() == productId) {
 			cart.setProduct01Quantity(cart.getProduct01Quantity() + productQ);
 			cart.setPrice(cart.getPrice() + (product.getPrice() * productQ));
 			System.out.println("I'm 01 = productId");
+			setProduct(cart);
 			cartRepository.save(cart);
-			return new ResponseEntity<String>(msg, HttpStatus.OK);
+			return new ResponseEntity<Cart>(cart, HttpStatus.OK);
 		}
 		else {
 			if(cart.getProduct02Id() == productId)	{
 				cart.setProduct02Quantity(cart.getProduct02Quantity() + productQ);
 				cart.setPrice(cart.getPrice() + (product.getPrice() * productQ));
 				System.out.println("I'm 01 = full, 02 = productId");
+				setProduct(cart);
 				cartRepository.save(cart);
-				return new ResponseEntity<String>(msg, HttpStatus.OK);
+				return new ResponseEntity<Cart>(cart, HttpStatus.OK);
 			}
 			else if(cart.getProduct02Id() == 0) {
 				cart.setProduct02Id(productId);
 				cart.setProduct02Quantity(productQ);
 				cart.setPrice(cart.getPrice() + (product.getPrice() * productQ));
 				System.out.println("I'm 01 = full, 02 = empty");
+				setProduct(cart);
 				cartRepository.save(cart);
-				return new ResponseEntity<String>(msg, HttpStatus.OK);
+				return new ResponseEntity<Cart>(cart, HttpStatus.OK);
 			}
 			else {
 				System.out.println("I'm 01 = full, 02 = full");
+				setProduct(cart);
 				cartRepository.save(cart);
-				return new ResponseEntity<String>(msg, HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<Cart>(cart, HttpStatus.BAD_REQUEST);
 			}
 		}
 	}
 
-	@DeleteMapping(value = "/userId")
-	public ResponseEntity<Void> clearCart(@PathVariable int userId) {
+	@DeleteMapping(value = "/{userId}")
+	public ResponseEntity<Cart> clearCart(@PathVariable int userId) {
 
 		Cart cart = cartRepository.findCartById(userId);
 		resetCart(cart);
 
 		cartRepository.save(cart);
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
 	}
 
 	private void resetCart(Cart cart) {
@@ -178,5 +188,10 @@ public class CartController {
 		cart.setProduct02Quantity(0);
 		cart.setProduct01(null);
 		cart.setProduct02(null);
+	}
+	
+	private void setProduct(Cart cart) {
+		cart.setProduct01(productRepository.findById(cart.getProduct01Id()));
+		cart.setProduct02(productRepository.findById(cart.getProduct02Id()));
 	}
 }

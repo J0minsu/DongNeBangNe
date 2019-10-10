@@ -8,13 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name = "order")
+@Table(name = "\"order\"")
 @Entity
 @Getter
 @Setter
@@ -46,7 +47,13 @@ public class Order {
 	private int product02Id;
 	
 	@Column(name = "product02_quantity")
-	private int product02wQ;
+	private int product02Q;
+
+	@Transient
+	private Product product01;
+
+	@Transient
+	private Product product02;
 	
 	
 	@PrePersist
@@ -63,7 +70,7 @@ public class Order {
 		this.product01Id = product01Id;
 		this.product01Q = product01Quantity;
 		this.product02Id = product02Id;
-		this.product02wQ = product02Quantity;
+		this.product02Q = product02Quantity;
 	}
 	
 }
