@@ -115,7 +115,8 @@ public class CartController {
 			if(cart.getProduct02Id() == productId) {
 				cart.setProduct02Quantity(cart.getProduct02Quantity() + productQ);
 				cart.setPrice(cart.getPrice() + (product.getPrice() * productQ));
-				
+				System.out.println("I'm 01 = empty, 02 = productId");
+				cartRepository.save(cart);
 				return new ResponseEntity<String>(msg, HttpStatus.OK);
 			}
 			else {
@@ -123,31 +124,37 @@ public class CartController {
 				cart.setProduct01Quantity(productQ);
 				cart.setPrice(cart.getPrice() + (product.getPrice() * productQ));
 				cart.setProduct01(product);
-				
+				System.out.println("I'm 01 = empty, 02 != productId");
+				cartRepository.save(cart);
 				return new ResponseEntity<String>(msg, HttpStatus.OK);
 			}
 		}
 		else if(cart.getProduct01Id() == productId) {
 			cart.setProduct01Quantity(cart.getProduct01Quantity() + productQ);
 			cart.setPrice(cart.getPrice() + (product.getPrice() * productQ));
-			
+			System.out.println("I'm 01 = productId");
+			cartRepository.save(cart);
 			return new ResponseEntity<String>(msg, HttpStatus.OK);
 		}
 		else {
 			if(cart.getProduct02Id() == productId)	{
 				cart.setProduct02Quantity(cart.getProduct02Quantity() + productQ);
 				cart.setPrice(cart.getPrice() + (product.getPrice() * productQ));
-				
+				System.out.println("I'm 01 = full, 02 = productId");
+				cartRepository.save(cart);
 				return new ResponseEntity<String>(msg, HttpStatus.OK);
 			}
 			else if(cart.getProduct02Id() == 0) {
 				cart.setProduct02Id(productId);
 				cart.setProduct02Quantity(productQ);
 				cart.setPrice(cart.getPrice() + (product.getPrice() * productQ));
-				
+				System.out.println("I'm 01 = full, 02 = empty");
+				cartRepository.save(cart);
 				return new ResponseEntity<String>(msg, HttpStatus.OK);
 			}
 			else {
+				System.out.println("I'm 01 = full, 02 = full");
+				cartRepository.save(cart);
 				return new ResponseEntity<String>(msg, HttpStatus.BAD_REQUEST);
 			}
 		}
