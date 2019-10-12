@@ -48,7 +48,7 @@ public class EventController {
 		// he
 		logger.debug("Calling findEventByEventId( )");
 
-		Event event = eventRepository.findEventByEventId(eventId);
+		Event event = eventRepository.findById(eventId);
 		
 		return new ResponseEntity<Event>(event, HttpStatus.OK);
 	}

@@ -33,6 +33,9 @@ public class Event {
 	@Column(name = "broadcast_id")
 	private int broadcastId;
 	
+	@Column(name = "user_id")
+	private int userId;
+	
 	@Column(name = "stock")
 	private int stock;
 }
