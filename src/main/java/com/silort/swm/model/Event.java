@@ -13,7 +13,7 @@ import lombok.ToString;
 
 
 
-@Table(name = "event")
+@Table(name = "\"event\"")
 @Entity
 @Getter
 @Setter
