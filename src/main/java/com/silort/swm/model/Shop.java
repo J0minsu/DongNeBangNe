@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,10 +45,27 @@ public class Shop {
 	@Column(name = "addr_dong")
 	private String dong;
 	
+	@Column(name = "addr_detail")
+	private String detail;
+	
 	@Column(name = "follower_num")
 	private int followerNumber;
 
 	@Column(name = "category_id")
 	private int categoryId;
+	
+	@Transient
+	private User provider;
+
+	public Shop(int id, int name, String city, String gu, String dong, String detail) {
+		this.id = id;
+		this.name = name;
+		this.city = city;
+		this.gu = gu;
+		this.dong = dong;
+		this.detail = detail;
+	}
+	
+	
 
 }
