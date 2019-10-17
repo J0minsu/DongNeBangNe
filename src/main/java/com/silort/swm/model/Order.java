@@ -36,6 +36,18 @@ public class Order {
 
 	@Column(name = "time")
 	private LocalDateTime time;
+	
+	@Column(name = "addr_city")
+	private String city;
+
+	@Column(name = "addr_gu")
+	private String gu;
+	
+	@Column(name = "addr_dong")
+	private String dong;
+	
+	@Column(name = "addr_detail")
+	private String detail;
 
 	@Column(name = "product01_id")
 	private int product01Id;
@@ -55,6 +67,8 @@ public class Order {
 	@Transient
 	private Product product02;
 	
+	@Transient
+	private User user;
 	
 	@PrePersist
 	public void orderAt() {

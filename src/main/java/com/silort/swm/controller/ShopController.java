@@ -1,7 +1,6 @@
 package com.silort.swm.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.silort.swm.model.Shop;
@@ -44,20 +43,20 @@ public class ShopController {
 	}
 	
 	@GetMapping(value = "/gps", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Shop>> findShopsByGPS(@RequestBody Map<String, String> map) {
+	public ResponseEntity<List<Shop>> findShopsByGPS(@RequestParam("city") String city, @RequestParam("gu") String gu, @RequestParam("dong") String dong) {
 		// he
 		logger.debug("Calling findShopsByGPS( )");
 
 		List<Shop> shops;
 		
-		if(map.get("dong") == null) {
-			if(map.get("gu") == null) {
-				shops = shopRepository.findShopsByCity(map.get("city"));
+		if(dong == null) {
+			if(gu == null) {
+				shops = shopRepository.findShopsByCity(city);
 			}
-			shops = shopRepository.findShopsByCityAndGu(map.get("city"), map.get("gu"));
+			shops = shopRepository.findShopsByCityAndGu(city, gu);
 		}
 		else
-			shops = shopRepository.findShopsByCityAndGuAndDong(map.get("city"), map.get("gu"), map.get("dong"));
+			shops = shopRepository.findShopsByCityAndGuAndDong(city, gu, dong);
 			
 		for(Shop shop : shops) {
 			Shop fixShop = new Shop(shop.getId(), shop.getName(), shop.getCity(), shop.getGu(), shop.getDong(), shop.getDetail());

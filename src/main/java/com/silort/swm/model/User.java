@@ -55,6 +55,19 @@ public class User implements Serializable{
 	
 	@Column(name = "balance")
 	private int balance;
+
+	@Column(name = "addr_city")
+	private String city;
+
+	@Column(name = "addr_gu")
+	private String gu;
+	
+	@Column(name = "addr_dong")
+	private String dong;
+	
+	@Column(name = "addr_detail")
+	private String detail;
+
 	
 	
 }
