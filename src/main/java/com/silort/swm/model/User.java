@@ -67,6 +67,9 @@ public class User implements Serializable{
 	
 	@Column(name = "addr_detail")
 	private String detail;
+	
+	@Column(name = "isDelete")
+	private int isDelete;
 
 	
 	
