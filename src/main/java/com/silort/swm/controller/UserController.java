@@ -35,10 +35,10 @@ public class UserController {
 
 		logger.debug("Calling getAll( )");
 
-		List<User> list = new ArrayList<>();
-		Iterable<User> users = repository.findAll();
-
-		users.forEach(list::add);
+		List<User> list = repository.findAll();
+		
+		//개인정보 보호
+		for(User user : list)	protectPersonalInfo(user);
 
 		return new ResponseEntity<List<User>>(list, HttpStatus.OK);
 	}
@@ -49,6 +49,7 @@ public class UserController {
 		logger.debug("Calling findUserById( )");
 		
 		User user = repository.findUserById(userId);
+		protectPersonalInfo(user);
 
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
@@ -59,6 +60,10 @@ public class UserController {
 		logger.debug("Calling findByRole( )");
 
 		List<User> users = repository.findByRole(role);
+		
+		//개인정보 보호.
+		for(User user : users)	protectPersonalInfo(user);
+		
 		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
 	}
 
@@ -93,5 +98,11 @@ public class UserController {
 		user.setIsDelete(1);
 		
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
+	
+	private void protectPersonalInfo(User user) {
+		user.setPassword(null);
+		user.setBalance(0);
+		user.setEmail(null);
 	}
 }

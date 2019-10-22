@@ -10,6 +10,7 @@ import com.silort.swm.model.User;
 public interface UserRepository extends CrudRepository<User, Integer> {
 
 
+	List<User> findAll();
 	
 	User findUserById(int id);
 	

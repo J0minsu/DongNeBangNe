@@ -25,14 +25,14 @@ public class VideoController {
 	@Autowired
 	private VideoRepository videoRepository;
 	
-//	@GetMapping
-//	public ResponseEntity<List<Video>> getVideos() {
-//	
-//		logger.debug("Call getVideos( )");
-//		List<Video> videos = videoRepository.findAllVideo();
-//		
-//		return new ResponseEntity<List<Video>>(videos, HttpStatus.OK);
-//	}
+	@GetMapping
+	public ResponseEntity<List<Video>> getVideos() {
+	
+		logger.debug("Call getVideos( )");
+		List<Video> videos = videoRepository.findAll();
+		
+		return new ResponseEntity<List<Video>>(videos, HttpStatus.OK);
+	}
 	
 	@GetMapping(value = "/user/{userId}")
 	public ResponseEntity<List<Video>> getVideoByUploader(@PathVariable int userId) {

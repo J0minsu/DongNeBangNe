@@ -9,7 +9,7 @@ import com.silort.swm.model.Video;
 public interface VideoRepository extends CrudRepository<Video, Integer> {
 
 	
-//	List<Video> findAllVideo();
+	List<Video> findAll();
 	
 	List<Video> findVideosByUploaderId(int userId);
 }

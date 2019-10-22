@@ -38,7 +38,7 @@ public class Video {
 	private String url;
 	
 	@Column(name = "category_id")
-	private int categotyId;
+	private int categoryId;
 	
 	@Column(name = "description")
 	private String description;
