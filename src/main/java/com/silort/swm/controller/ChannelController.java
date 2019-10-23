@@ -23,7 +23,7 @@ import com.silort.swm.model.Channel;
 import com.silort.swm.repo.ChannelRepository;
 
 @RestController
-@RequestMapping("api/channel")
+@RequestMapping("api/channels")
 public class ChannelController {
 	
 
@@ -37,7 +37,7 @@ public class ChannelController {
 //		
 //	}
 	
-	@GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Channel> findChannelByUserId(@PathVariable int userId) {
 		// he
 		logger.debug("Calling findChannelByUserId( )");
@@ -46,6 +46,18 @@ public class ChannelController {
 
 		return new ResponseEntity<Channel>(channel, HttpStatus.OK);
 	}
+	
+	
+	@GetMapping(value = "/{channelId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Channel> findChannelById(@PathVariable int channelId) {
+		// he
+		logger.debug("Calling findChannelByChannelId( )");
+
+		Channel channel = channelRepository.findById(channelId);
+
+		return new ResponseEntity<Channel>(channel, HttpStatus.OK);
+	}
+	
 	
 	@PostMapping()
 	public ResponseEntity<Void> postChannel(@RequestBody Channel channel) {

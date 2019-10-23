@@ -1,17 +1,20 @@
 package com.silort.swm.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.silort.swm.model.Broadcast;
 import com.silort.swm.model.Video;
 import com.silort.swm.repo.VideoRepository;
 
@@ -34,6 +37,22 @@ public class VideoController {
 		return new ResponseEntity<List<Video>>(videos, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/number/{number}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Video>> findNumberVideos(@PathVariable int number) {
+		
+
+		logger.debug("Calling findNumberVideos( )");
+		List<Video> list = videoRepository.findAll();
+		
+		List<Video> sendList = new ArrayList<Video>();
+		
+		if(number > list.size())	number = list.size();
+		
+		for(int i = 0; i < number; i++)	sendList.add(list.get(i));
+		
+		return new ResponseEntity<List<Video>>(sendList, HttpStatus.OK);
+	}
+	
 	@GetMapping(value = "/user/{userId}")
 	public ResponseEntity<List<Video>> getVideoByUploader(@PathVariable int userId) {
 		
@@ -42,5 +61,15 @@ public class VideoController {
 		List<Video> videos = videoRepository.findVideosByUploaderId(userId);
 		
 		return new ResponseEntity<List<Video>>(videos, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/{videoId}")
+	public ResponseEntity<Video> getVideoById(@PathVariable int videoId) {
+		
+		logger.debug("Call getVideoByvideoId( )");
+		
+		Video video = videoRepository.findVideoById(videoId);
+		
+		return new ResponseEntity<Video>(video, HttpStatus.OK);
 	}
 }

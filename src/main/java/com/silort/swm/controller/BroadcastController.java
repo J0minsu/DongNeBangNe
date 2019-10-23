@@ -1,7 +1,9 @@
 package com.silort.swm.controller;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -65,11 +68,31 @@ public class BroadcastController {
 	public ResponseEntity<List<Broadcast>> findAllBroadcast() {
 
 		logger.debug("Calling findAllBroadcast( )");
-		List<Broadcast> list = new ArrayList<Broadcast>();
-		Iterable<Broadcast> broadcasts = broadcastRepository.findAll();
-		broadcasts.forEach(list::add);
+		List<Broadcast> list = broadcastRepository.findAll();
+		
+		List<Broadcast> sendList = new ArrayList<Broadcast>();
+		
+		for(int i = 0; i < 5; i++) {
+			sendList.add(list.get(i));
+		}
 		
 		return new ResponseEntity<List<Broadcast>>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/number/{number}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Broadcast>> findNumberBroadcast(@PathVariable int number) {
+		
+
+		logger.debug("Calling findNumberBroadcast( )");
+		List<Broadcast> list = broadcastRepository.findAll();
+		
+		List<Broadcast> sendList = new ArrayList<Broadcast>();
+		
+		if(number > list.size())	number = list.size();
+		
+		for(int i = 0; i < number; i++)	sendList.add(list.get(i));
+		
+		return new ResponseEntity<List<Broadcast>>(sendList, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/category/{categoryId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -82,14 +105,21 @@ public class BroadcastController {
 		return new ResponseEntity<List<Broadcast>>(list, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/schedules/{yearMonthDay}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Broadcast>> findBroadcastsByDay(@PathVariable String yearMonthDay) {
+	@GetMapping(value = "/schedules", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Broadcast>> findBroadcastsByDay(@RequestParam("year")int year, @RequestParam("month")int month, @RequestParam("day")int day) {
 
 		logger.debug("Calling findBroadcastByDay( )");
+//		
+//		int year = Integer.valueOf(y);
+//		int month = Integer.valueOf(m);
+//		int day = Integer.valueOf(d);
 		
-		LocalDateTime time = LocalDateTime.parse(yearMonthDay);
+		LocalDate localDate = LocalDate.of(year, month, day);
 		
-		List<Broadcast> list = broadcastRepository.findBroadcastByBroadcastDateStartingWith(time);
+		
+		System.out.println("니나니뇨..!" + localDate);
+		
+		List<Broadcast> list = broadcastRepository.findBroadcastByBroadcastDateStartingWith(localDate);
 		
 		return new ResponseEntity<List<Broadcast>>(list, HttpStatus.OK);
 	}

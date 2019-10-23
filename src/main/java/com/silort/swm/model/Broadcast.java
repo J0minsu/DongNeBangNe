@@ -32,7 +32,7 @@ public class Broadcast {
 	@Column(name = "channel_ch_id")
 	private int channelId;
 	
-	@Column(name = "product_prou_id")
+	@Column(name = "product_prod_id")
 	private int productId;
 	
 	@Column(name = "category_id")
