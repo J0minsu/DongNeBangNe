@@ -3,6 +3,7 @@ package com.silort.swm.controller;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -109,17 +110,14 @@ public class BroadcastController {
 	public ResponseEntity<List<Broadcast>> findBroadcastsByDay(@RequestParam("year")int year, @RequestParam("month")int month, @RequestParam("day")int day) {
 
 		logger.debug("Calling findBroadcastByDay( )");
-//		
-//		int year = Integer.valueOf(y);
-//		int month = Integer.valueOf(m);
-//		int day = Integer.valueOf(d);
-		
-		LocalDate localDate = LocalDate.of(year, month, day);
+
+		LocalDateTime startTime = LocalDateTime.of(LocalDate.of(year, month, day), LocalTime.of(0, 0, 0));
+
+		LocalDateTime endTime = LocalDateTime.of(LocalDate.of(year, month, day), LocalTime.of(23, 59, 59));
 		
 		
-		System.out.println("니나니뇨..!" + localDate);
-		
-		List<Broadcast> list = broadcastRepository.findBroadcastByBroadcastDateStartingWith(localDate);
+		List<Broadcast> list = broadcastRepository.findBroadcastByBroadcastDateBetween(startTime, endTime);
+				
 		
 		return new ResponseEntity<List<Broadcast>>(list, HttpStatus.OK);
 	}
