@@ -32,6 +32,9 @@ public class Product {
 	
 	@Column(name = "price")
 	private int price;
+
+	@Column(name = "changed_price")
+	private int changedPrice;
 	
 	@Column(name = "stock")
 	private int unitInStock;
@@ -47,6 +50,11 @@ public class Product {
 	
 	@Column(name = "image_url")
 	private String imageUrl;
+	
+	@Column(name = "detail_img_url")
+	private String detailImageUrl;
+	
+
 	
 	
 }
