@@ -70,6 +70,9 @@ public class User implements Serializable{
 	
 	@Column(name = "isDelete")
 	private int isDelete;
+	
+	@Column(name = "profile_img")
+	private String profileImage;
 
 	
 	

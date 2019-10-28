@@ -1,5 +1,7 @@
 package com.silort.swm.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,4 +47,7 @@ public class Video {
 	
 	@Column(name = "thumbnail_url")
 	private String thumbnailUrl;
+	
+	@Column(name = "uploadAt")
+	private LocalDateTime uploadAt;
 }
