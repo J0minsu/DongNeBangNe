@@ -68,21 +68,17 @@ public class ProductController {
 
 	}
 
-//	// testing 중 User 관련 오류 발생시 String type 고려
-//	@GetMapping(value = "/seller/{sellerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<List<Product>> getSellerProduct(@PathVariable String sellerId) {
-//
-//		logger.debug("Calling get Product By Seller");
-//
-//		List<Product> list = new ArrayList<>();
-//		Iterable<Product> iterable = productRepository
-//				.findBySeller(userRepository.findUserByNo(userRepository.findNoById(sellerId)));
-//
-//		iterable.forEach(list::add);
-//
-//		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
-//
-//	}
+	// testing 중 User 관련 오류 발생시 String type 고려
+	@GetMapping(value = "/provider/{providerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Product>> getSellerProduct(@PathVariable int providerId) {
+
+		logger.debug("Calling getSellerProduct");
+
+		List<Product> list = productRepository.findByProviderId(providerId);
+
+		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
+
+	}
 	//he
 	@PostMapping
 	public ResponseEntity<Void> postProduct(@RequestBody Product product) {

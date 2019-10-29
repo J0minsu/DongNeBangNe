@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -50,4 +51,20 @@ public class Video {
 	
 	@Column(name = "uploadAt")
 	private LocalDateTime uploadAt;
+	
+	@PrePersist
+	public void createdVideo() {
+		this.uploadAt = LocalDateTime.now();
+	}
+
+	public Video(int productId, String name, int uploaderId, String url, int categoryId, String thumbnailUrl) {
+		this.productId = productId;
+		this.name = name;
+		this.uploaderId = uploaderId;
+		this.url = url;
+		this.categoryId = categoryId;
+		this.thumbnailUrl = thumbnailUrl;
+	}
+	
+	
 }

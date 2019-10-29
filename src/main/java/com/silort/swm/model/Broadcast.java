@@ -53,6 +53,9 @@ public class Broadcast {
 	@Column(name = "url")
 	private String url;
 
+	@Column(name = "media_id")
+	private String mediaId;
+	
 	@PrePersist
 	public void createdContract() {
 		this.broadcastDate = LocalDateTime.now();

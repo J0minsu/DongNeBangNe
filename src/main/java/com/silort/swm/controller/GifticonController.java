@@ -1,6 +1,5 @@
 package com.silort.swm.controller;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.List;
@@ -12,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,7 +45,7 @@ public class GifticonController {
 	}
 	
 	@GetMapping(value = "/{gifticonId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Gifticon> findGifticonById(@RequestParam int gifticonId) {
+	public ResponseEntity<Gifticon> findGifticonById(@PathVariable int gifticonId) {
 
 		logger.debug("Calling findGifticonById( )");
 		

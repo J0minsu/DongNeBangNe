@@ -10,8 +10,10 @@ public interface VideoRepository extends CrudRepository<Video, Integer> {
 
 	
 	List<Video> findAll();
-	
+
 	List<Video> findVideosByUploaderId(int userId);
+	
+	List<Video> findVideosByProductId(int productId);
 	
 	Video findVideoById(int id);
 }
