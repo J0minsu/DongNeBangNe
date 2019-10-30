@@ -10,6 +10,8 @@ import com.silort.swm.model.Broadcast;
 public interface BroadcastRepository extends CrudRepository<Broadcast, Integer>  {
 
 	List<Broadcast> findBroadcastByCategoryId(int categoryId);
+	
+	List<Broadcast> findBroadcastByChannelId(int channelId);
 
 	List<Broadcast> findBroadcastByBroadcastDateBetween(LocalDateTime start, LocalDateTime end);
 	

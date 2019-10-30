@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.silort.swm.model.Shop;
 import com.silort.swm.model.User;
 import com.silort.swm.repo.UserRepository;
 
@@ -78,13 +80,22 @@ public class UserController {
 	}
 
 	
-	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> updatetUser(@RequestBody User user) {
-		logger.debug("Calling putUser( )");
+	@PutMapping()
+	public ResponseEntity<User> updateUserGPS(@RequestParam("userId") int userId, @RequestParam("city") String city, @RequestParam("gu") String gu, @RequestParam("dong") String dong) {
+		// he
+		logger.debug("Calling updateUserGPS( )");
+		
+		User user = repository.findUserById(userId);
+		
+		user.setCity(city);
+		user.setGu(gu);
+		user.setDong(dong);
 		
 		repository.save(user);
-
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
+		
+		protectPersonalInfo(user);
+		
+		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
 

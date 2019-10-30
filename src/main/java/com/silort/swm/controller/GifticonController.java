@@ -35,7 +35,7 @@ public class GifticonController {
 
 	
 	@GetMapping(value = "/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Gifticon>> findGifticonsByUser(@RequestParam int userId) {
+	public ResponseEntity<List<Gifticon>> findGifticonsByUser(@PathVariable int userId) {
 
 		logger.debug("Calling findGifticonsByUser( )");
 		
@@ -65,8 +65,8 @@ public class GifticonController {
 		return new ResponseEntity<Gifticon>(gifticon, HttpStatus.CREATED);
 	}
 	
-	@PutMapping
-	public ResponseEntity<Gifticon> usingGifticon(@RequestParam int gifticonId) {
+	@PutMapping(value = "/{gifticonId}")
+	public ResponseEntity<Gifticon> usingGifticon(@PathVariable int gifticonId) {
 		logger.debug("Calling usingGifticon");
 		
 		Gifticon gifticon = gifticonRepository.findGifticonById(gifticonId);

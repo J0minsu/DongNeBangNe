@@ -79,6 +79,17 @@ public class ProductController {
 		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
 
 	}
+	
+	@GetMapping(value = "/category/{categoryId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Product>> getCategoryProduct(@PathVariable int categoryId) {
+
+		logger.debug("Calling getCategoryProduct");
+
+		List<Product> list = productRepository.findByCategoryId(categoryId);
+
+		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
+
+	}
 	//he
 	@PostMapping
 	public ResponseEntity<Void> postProduct(@RequestBody Product product) {
