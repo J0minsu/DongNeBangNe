@@ -45,9 +45,6 @@ public class Gifticon {
 	private int userId;
 	
 	@Transient
-	private Product product;
-	
-	@Transient
 	private String text;
 	
 	@PrePersist

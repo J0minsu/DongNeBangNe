@@ -63,6 +63,16 @@ public class VideoController {
 		return new ResponseEntity<List<Video>>(videos, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/category/{categoryId}")
+	public ResponseEntity<List<Video>> getVideoByCategory(@PathVariable int categoryId) {
+		
+		logger.debug("Call getVideoByCategory( )");
+		
+		List<Video> videos = videoRepository.findVideosByCategoryId(categoryId);
+		
+		return new ResponseEntity<List<Video>>(videos, HttpStatus.OK);
+	}
+	
 	
 	@GetMapping(value = "/product/{productId}")
 	public ResponseEntity<List<Video>> getVideoByProduct(@PathVariable int productId) {

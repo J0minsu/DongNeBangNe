@@ -81,7 +81,7 @@ public class UserController {
 
 	
 	@PutMapping()
-	public ResponseEntity<User> updateUserGPS(@RequestParam("userId") int userId, @RequestParam("city") String city, @RequestParam("gu") String gu, @RequestParam("dong") String dong) {
+	public ResponseEntity<User> updateUserGPS(@RequestParam("userId") int userId, @RequestParam("city") String city, @RequestParam("gu") String gu, @RequestParam("dong") String dong, @RequestParam("detail") String detail) {
 		// he
 		logger.debug("Calling updateUserGPS( )");
 		
@@ -90,6 +90,7 @@ public class UserController {
 		user.setCity(city);
 		user.setGu(gu);
 		user.setDong(dong);
+		user.setDetail(detail);
 		
 		repository.save(user);
 		
