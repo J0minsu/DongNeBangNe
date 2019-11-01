@@ -11,10 +11,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.silort.swm.model.Broadcast;
 import com.silort.swm.model.Video;
 import com.silort.swm.repo.VideoRepository;
 
@@ -95,5 +96,20 @@ public class VideoController {
 		
 		return new ResponseEntity<Video>(video, HttpStatus.OK);
 	}
+	
+	@PostMapping
+	public ResponseEntity<Video> saveVideo(@RequestParam("productId") int productId, @RequestParam("name") String name, @RequestParam("uploaderId") int uploaderId, @RequestParam("url") String url, @RequestParam("categoryId") int categoryId, @RequestParam("description") String description, @RequestParam("thumbnailUrl") String thumbnailUrl) {
+		
+		Video video = new Video(productId, name, uploaderId, url, description, categoryId, thumbnailUrl);
+		
+		videoRepository.save(video);
+		
+		return new ResponseEntity<Video>(video, HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
 
 }

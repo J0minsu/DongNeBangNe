@@ -147,66 +147,9 @@ public class BroadcastController {
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	
-//	@PostMapping("/on/{broadcastId}")
-//	public ResponseEntity<String> onBroadcast(@PathVariable int broadcastId) {
-//		
-//		logger.debug("Calling onBroadcast( )");
-//
-//		Broadcast onBroadcast = broadcastRepository.findById(broadcastId);
-//		onBroadcast.setBroadcastState(1);
-//		
-//		ClientHttpRequestFactory factory = new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory());
-//
-//		RestTemplate restTemplate = new RestTemplate(factory);
-//		MediaChannel mediaChannel = new MediaChannel();
-//
-//		Channel channel = channelRepository.findById(onBroadcast.getChannelId());
-//		User user = userRepository.findUserById(channel.getUserId());
-//
-//		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
-//		parameters.add("action", "start");
-//		parameters.add("user", user.getName());
-//		parameters.add("channel_id", "0");	
-//		
-//		HttpHeaders header = new HttpHeaders();
-//		header.setContentType(MediaType.APPLICATION_JSON_UTF8);
-//		
-//		System.out.println("url 들어가기 전!");
-//		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://1szpyu5xq7.execute-api.ap-northeast-2.amazonaws.com/media/bylive");
-//		builder.queryParams(parameters);
-//		
-//		
-//		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String,String>>(parameters, header);
-//		
-//		System.out.println("request의 들어가기 전 바디 상태 : " + request.getBody());
-//
-//		System.out.println("들어가기 전 restTemplate 상태 :" + restTemplate.toString());
-//		
-//		ResponseEntity<MediaChannel> responseEntity = restTemplate.postForEntity(
-//				builder.build().encode().toUri(),
-//				request,
-//				MediaChannel.class);
-//		
-//		System.out.println("갔다온 후 responseEntity 상태 : " + responseEntity.getBody());
-//		
-//		mediaChannel = responseEntity.getBody();
-//		
-//		System.out.println("결과다!" + mediaChannel);
-//		
-//
-//		broadcastRepository.save(onBroadcast);
-//		
-//		Video video = new Video(onBroadcast.getProductId(), onBroadcast.getTitle(),
-//				channel.getUserId(), "url", channel.getCategoryId(), onBroadcast.getThumbnailUrl());
-//		
-//		videoRepository.save(video);
-//		
-//		
-//		return new ResponseEntity<String>(mediaChannel.getSource_url(), HttpStatus.OK);
-//	}
 	
-	@PostMapping("/off/{broadcastId}")
-	public ResponseEntity<Void> offBroadcast(@RequestBody int broadcastId) {
+	@PutMapping("/off/{broadcastId}")
+	public ResponseEntity<Void> offBroadcast(@PathVariable int broadcastId) {
 		
 		logger.debug("Calling offBroadcast( )");
 
@@ -230,6 +173,22 @@ public class BroadcastController {
 		beforeBroadcast.setTitle(broadcast.getTitle());
 		
 		broadcastRepository.save(beforeBroadcast);
+		
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@PutMapping(value = "/on")
+	public ResponseEntity<Void> onBroadcast(@RequestParam("broadcastId") int broadcastId, @RequestParam("url") String url, @RequestParam("mediaId") String mediaId) {
+		
+		logger.debug("Calling onBroadcast( )");
+
+		Broadcast broadcast = broadcastRepository.findById(broadcastId);
+		
+		broadcast.setMediaId(mediaId);
+		broadcast.setUrl(url);
+		broadcast.setBroadcastState(1);
+		
+		broadcastRepository.save(broadcast);
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}

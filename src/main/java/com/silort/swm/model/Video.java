@@ -57,11 +57,12 @@ public class Video {
 		this.uploadAt = LocalDateTime.now();
 	}
 
-	public Video(int productId, String name, int uploaderId, String url, int categoryId, String thumbnailUrl) {
+	public Video(int productId, String name, int uploaderId, String url, String description, int categoryId, String thumbnailUrl) {
 		this.productId = productId;
 		this.name = name;
 		this.uploaderId = uploaderId;
 		this.url = url;
+		this.description = description;
 		this.categoryId = categoryId;
 		this.thumbnailUrl = thumbnailUrl;
 	}
