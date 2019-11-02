@@ -63,13 +63,7 @@ public class BroadcastController {
 	public ResponseEntity<List<Broadcast>> findAllBroadcast() {
 
 		logger.debug("Calling findAllBroadcast( )");
-		List<Broadcast> list = broadcastRepository.findAll();
-		
-		List<Broadcast> sendList = new ArrayList<Broadcast>();
-		
-		for(int i = 0; i < 5; i++) {
-			sendList.add(list.get(i));
-		}
+		List<Broadcast> list = broadcastRepository.findBroadcastByBroadcastState(1);
 		
 		return new ResponseEntity<List<Broadcast>>(list, HttpStatus.OK);
 	}
@@ -79,7 +73,7 @@ public class BroadcastController {
 		
 
 		logger.debug("Calling findNumberBroadcast( )");
-		List<Broadcast> list = broadcastRepository.findAll();
+		List<Broadcast> list = broadcastRepository.findBroadcastByBroadcastState(1);
 		
 		List<Broadcast> sendList = new ArrayList<Broadcast>();
 		
@@ -95,7 +89,7 @@ public class BroadcastController {
 
 		logger.debug("Calling findBroadcastByCategory( )");
 		
-		List<Broadcast> list = broadcastRepository.findBroadcastByCategoryId(categoryId);
+		List<Broadcast> list = broadcastRepository.findBroadcastByCategoryIdAndBroadcastState(categoryId, 1);
 		
 		return new ResponseEntity<List<Broadcast>>(list, HttpStatus.OK);
 	}
