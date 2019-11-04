@@ -20,7 +20,7 @@ public class HomeController {
 		//he
 		logger.debug("Calling root");
 		
-		ModelAndView view = new ModelAndView("test");
+		ModelAndView view = new ModelAndView("home");
 		view.addObject("text", "너는 까까머리~");
 		return view;
 	}
