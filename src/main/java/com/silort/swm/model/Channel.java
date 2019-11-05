@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,6 +54,18 @@ public class Channel {
 	
 	@Column(name = "addr_dong")
 	private String dong;
+	
+	@Column(name = "brod_type")
+	private String broadcastType;
+	
+	@Transient
+	private String userProfileImg;
+	
+	@Transient
+	private int totalContractNumber;
+	
+	@Transient
+	private int averageContractFee;
 	
 	
 	

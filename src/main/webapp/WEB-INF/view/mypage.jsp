@@ -2,21 +2,6 @@
     pageEncoding="UTF-8"%>
 <!doctype html>
 
-<body>	
-<div class="site_wrap">
-
-	<div class="header_wrap">
-		<div class="header">
-			<ul class="nav">
-				<li><a href="influ_01.jsp">인플루언서</a></li>
-				<li><a href="biz_01.jsp">소상공인</a></li>
-				<li class="logo"><a href="index.jsp"><img src="static/images/logo.png" alt=""></a></li>
-				<li><a href="matching.jsp">매칭</a></li>
-				<li><a href="mypage.jsp">내정보</a></li>
-			</ul>
-		</div>
-	</div><!-- .header_wrap -->
-
 	<div class="mypage_wrap">
 
 		<div class="myinfo">
