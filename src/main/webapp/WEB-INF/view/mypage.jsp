@@ -1,20 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!doctype html>
-<html lang="ko">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="imagetoolbar" content="no">
-<meta http-equiv="X-UA-Compatible" content="IE=10,chrome=1">
-<meta name="viewport" content="width=1120">
-
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
-<link rel="stylesheet" href="static/css/xeicon.css">
-<link rel="stylesheet" href="static/css/style.css">
-<script type="text/javascript" src="static/js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="static/js/common.js"></script>
-</head>
 
 <body>	
 <div class="site_wrap">

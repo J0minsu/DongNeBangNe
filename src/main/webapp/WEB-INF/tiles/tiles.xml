@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="base"
+		template="/WEB-INF/tiles/layouts/layout.jsp">
+		<put-attribute name="title" value="동네방네" />
+	</definition>
+
+	<definition name="home" extends="base">
+		<put-attribute name="title" value="동네방네" />
+		<put-attribute name="body" value="/WEB-INF/view/home.jsp" />
+	</definition>
+
+	<definition name="recommendInfluencer" extends="base">
+		<put-attribute name="title" value="인플루언서" />
+		<put-attribute name="body" value="/WEB-INF/view/influ_01.jsp" />
+	</definition>
+
+	<definition name="searchInfluencer" extends="base">
+		<put-attribute name="title" value="인플루언서" />
+		<put-attribute name="body" value="/WEB-INF/view/influ_02.jsp" />
+	</definition>
+
+	<definition name="employInfluencer" extends="base">
+		<put-attribute name="title" value="인플루언서" />
+		<put-attribute name="body" value="/WEB-INF/view/influ_03.jsp" />
+	</definition>
+
+	<definition name="contractDocument" extends="base">
+		<put-attribute name="title" value="매칭" />
+		<put-attribute name="body" value="/WEB-INF/view/matching.jsp" />
+	</definition>
+
+	<definition name="contracting" extends="base">
+		<put-attribute name="title" value="매칭" />
+		<put-attribute name="body" value="/WEB-INF/view/matching_01.jsp" />
+	</definition>
+
+	<definition name="successContract" extends="base">
+		<put-attribute name="title" value="매칭" />
+		<put-attribute name="body" value="/WEB-INF/view/matching_02.jsp" />
+	</definition>
+
+	<definition name="endContract" extends="base">
+		<put-attribute name="title" value="매칭" />
+		<put-attribute name="body" value="/WEB-INF/view/matching_03.jsp" />
+	</definition>
+	
+	<definition name="channel" extends="base">
+		<put-attribute name="title" value="인플루언서 페이지" />
+		<put-attribute name="body" value="/WEB-INF/view/mypage.jsp" />
+	</definition>
+	
+	<definition name="shop" extends="base">
+		<put-attribute name="title" value="소상공인 페이지" />
+		<put-attribute name="body" value="/WEB-INF/view/mypage2.jsp" />
+	</definition>
+	
+	<definition name="searchProvider" extends="base">
+		<put-attribute name="title" value="소상공인 검색" />
+		<put-attribute name="body" value="/WEB-INF/view/biz_01.jsp" />
+	</definition>
+
+</tiles-definitions>
