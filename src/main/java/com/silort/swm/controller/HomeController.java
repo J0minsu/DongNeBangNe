@@ -7,16 +7,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.silort.swm.model.Channel;
 import com.silort.swm.model.Contract;
 import com.silort.swm.model.User;
+import com.silort.swm.model.Video;
 import com.silort.swm.repo.ChannelRepository;
 import com.silort.swm.repo.ContractRepository;
 import com.silort.swm.repo.UserRepository;
+import com.silort.swm.repo.VideoRepository;
 
 @RestController
 @RequestMapping(value = "/")
@@ -32,6 +36,9 @@ public class HomeController {
 
 	@Autowired
 	private ContractRepository contractRepository;
+	
+	@Autowired
+	private VideoRepository videoRepository;
 
 	@GetMapping
 	public ModelAndView homeController() {
@@ -146,12 +153,21 @@ public class HomeController {
 	}
 
 	@GetMapping(value = "channel")
-	public ModelAndView channelController() {
-		// he
+	public ModelAndView channelController(@RequestParam("influencerId") int influencerId) {
 		logger.debug("Calling channel page");
 
+		Channel channel = channelRepository.findByUserId(influencerId);
+		User influencer = userRepository.findUserById(influencerId);
+		Video video = videoRepository.findVideoById(channel.getRepresentVideo());
+		influencer.setBalance(0);
+		influencer.setPassword(null);
+
+		channel.setUserProfileImg(influencer.getProfileImage());
+		
 		ModelAndView view = new ModelAndView("channel");
-		view.addObject("text", "너는 까까머리~");
+		view.addObject("channel", channel);
+		view.addObject("influencer", influencer);
+		view.addObject("video", video);
 		return view;
 	}
 

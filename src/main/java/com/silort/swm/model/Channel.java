@@ -28,6 +28,9 @@ public class Channel {
 	@Column(name = "user_id")
 	private int userId;
 	
+	@Column(name = "name")
+	private String name;
+	
 	@Column(name = "description")
 	private String description;
 	
@@ -57,6 +60,12 @@ public class Channel {
 	
 	@Column(name = "brod_type")
 	private String broadcastType;
+	
+	@Column(name = "banner_img")
+	private String bannerImage;
+	
+	@Column(name = "representVideo")
+	private int representVideo;
 	
 	@Transient
 	private String userProfileImg;

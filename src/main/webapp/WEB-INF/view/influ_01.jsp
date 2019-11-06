@@ -40,7 +40,7 @@
 				<dd>
 					<div class="info">
 						<div class="thumb">
-							<a href="/channel/${channel.id}"><img
+							<a href="/channel?influencerId=${channel.id}"><img
 								src="${channel.userProfileImg}" alt=""></a>
 						</div>
 						<div class="desc">
