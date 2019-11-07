@@ -57,6 +57,12 @@ public class Shop {
 	@Column(name = "profile_img")
 	private String profileImage;
 	
+	@Column(name = "banner_img")
+	private String bannerImage;
+	
+	@Column(name = "description")
+	private String description;
+	
 	@Transient
 	private User provider;
 

@@ -21,6 +21,9 @@
 			<div class="search_submit">
 				<a href="/contractDocument?influencerId=${influencer.id }&providerId=3">매칭 신청</a>
 			</div>
+			<div class="search_submit">
+				<a href="/contractDocument?influencerId=${influencer.id }&providerId=3">문의하기</a>
+			</div>
 		</div>
 	</div>
 

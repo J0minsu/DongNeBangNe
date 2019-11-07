@@ -43,6 +43,7 @@
 						<div class="thumb">
 							<a href="/shop?shopId=${noticeBoard.shopId}">
 							<img width="300" height="220" src="${noticeBoard.shop.profileImage }" alt="">
+							</a>
 						</div>
 						<div class="desc">
 							<ul>

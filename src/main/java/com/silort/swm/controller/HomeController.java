@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.silort.swm.model.Channel;
 import com.silort.swm.model.Contract;
 import com.silort.swm.model.NoticeBoard;
+import com.silort.swm.model.Shop;
 import com.silort.swm.model.User;
 import com.silort.swm.model.Video;
 import com.silort.swm.repo.ChannelRepository;
@@ -187,12 +187,13 @@ public class HomeController {
 	}
 
 	@GetMapping(value = "shop")
-	public ModelAndView shopController() {
+	public ModelAndView shopController(@RequestParam("shopId") int shopId) {
 		// he
 		logger.debug("Calling shop page");
 
 		ModelAndView view = new ModelAndView("shop");
-		view.addObject("text", "너는 까까머리~");
+		Shop shop = shopRepository.findShopById(shopId);
+		view.addObject("shop", shop);
 		return view;
 	}
 
