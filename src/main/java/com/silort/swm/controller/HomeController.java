@@ -15,10 +15,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.silort.swm.model.Channel;
 import com.silort.swm.model.Contract;
+import com.silort.swm.model.NoticeBoard;
 import com.silort.swm.model.User;
 import com.silort.swm.model.Video;
 import com.silort.swm.repo.ChannelRepository;
 import com.silort.swm.repo.ContractRepository;
+import com.silort.swm.repo.NoticeBoardRepository;
+import com.silort.swm.repo.ShopRepository;
 import com.silort.swm.repo.UserRepository;
 import com.silort.swm.repo.VideoRepository;
 
@@ -39,6 +42,12 @@ public class HomeController {
 	
 	@Autowired
 	private VideoRepository videoRepository;
+	
+	@Autowired
+	private NoticeBoardRepository noticeBoardRepository;
+	
+	@Autowired
+	private ShopRepository shopRepository;
 
 	@GetMapping
 	public ModelAndView homeController() {
@@ -108,7 +117,13 @@ public class HomeController {
 		logger.debug("Calling employInfluencer page");
 
 		ModelAndView view = new ModelAndView("employInfluencer");
-		view.addObject("text", "너는 까까머리~");
+		List<NoticeBoard> noticeBoards = noticeBoardRepository.findAll();
+		
+		for(NoticeBoard noticeBoard : noticeBoards)
+			noticeBoard.setShop(shopRepository.findShopById(noticeBoard.getShopId()));
+		
+		view.addObject("noticeBoards", noticeBoards);
+		
 		return view;
 	}
 

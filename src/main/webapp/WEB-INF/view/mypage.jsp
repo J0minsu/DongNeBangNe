@@ -15,6 +15,12 @@
 			</div>
 
 			<div class="desc">${channel.description}</div>
+
+		</div>
+		<div class="influ_wrap">
+			<div class="search_submit">
+				<a href="/contractDocument?influencerId=${influencer.id }&providerId=3">매칭 신청</a>
+			</div>
 		</div>
 	</div>
 

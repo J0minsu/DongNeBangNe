@@ -9,6 +9,8 @@ import com.silort.swm.model.Shop;
 public interface ShopRepository extends CrudRepository<Shop, Integer> {
 
 	Shop findShopByProviderId(int providerId);
+	
+	Shop findShopById(int id);
 
 	List<Shop> findShopsByCity(String city);
 

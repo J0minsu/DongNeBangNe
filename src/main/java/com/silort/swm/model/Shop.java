@@ -28,7 +28,7 @@ public class Shop {
 	private int id;	
 	
 	@Column(name = "shop_name")
-	private int name;
+	private String name;
 
 	@Column(name = "provider_user_id")
 	private int providerId;
@@ -54,10 +54,13 @@ public class Shop {
 	@Column(name = "category_id")
 	private int categoryId;
 	
+	@Column(name = "profile_img")
+	private String profileImage;
+	
 	@Transient
 	private User provider;
 
-	public Shop(int id, int name, String city, String gu, String dong, String detail) {
+	public Shop(int id, String name, String city, String gu, String dong, String detail) {
 		this.id = id;
 		this.name = name;
 		this.city = city;
