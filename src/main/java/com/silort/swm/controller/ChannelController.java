@@ -78,10 +78,8 @@ public class ChannelController {
 		updateChannel.setCost(channel.getCost());
 		updateChannel.setDescription(channel.getDescription());
 		updateChannel.setDong(channel.getDong());
-		updateChannel.setEngagementRating(channel.getEngagementRating());
 		updateChannel.setFollowerNumber(channel.getFollowerNumber());
 		updateChannel.setGu(channel.getGu());
-		updateChannel.setRating(channel.getRating());
 		
 		channelRepository.save(updateChannel);
 		

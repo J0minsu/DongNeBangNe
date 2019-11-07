@@ -2,6 +2,7 @@ package com.silort.swm.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,12 +16,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.silort.swm.model.Channel;
 import com.silort.swm.model.Contract;
 import com.silort.swm.model.NoticeBoard;
+import com.silort.swm.model.Product;
 import com.silort.swm.model.Shop;
 import com.silort.swm.model.User;
 import com.silort.swm.model.Video;
 import com.silort.swm.repo.ChannelRepository;
 import com.silort.swm.repo.ContractRepository;
 import com.silort.swm.repo.NoticeBoardRepository;
+import com.silort.swm.repo.ProductRepository;
 import com.silort.swm.repo.ShopRepository;
 import com.silort.swm.repo.UserRepository;
 import com.silort.swm.repo.VideoRepository;
@@ -48,6 +51,9 @@ public class HomeController {
 	
 	@Autowired
 	private ShopRepository shopRepository;
+	
+	@Autowired
+	private ProductRepository productRepository;
 
 	@GetMapping
 	public ModelAndView homeController() {
@@ -71,8 +77,8 @@ public class HomeController {
 		// ->
 		// dummy
 		List<Integer> recommendInfluencerList = new ArrayList<Integer>();
-		recommendInfluencerList.add(1);
-		recommendInfluencerList.add(2);
+		for(int i = 1; i < 10; i++)
+			recommendInfluencerList.add(i);
 		// end dummy
 
 		List<Channel> recommendChannel = new ArrayList<Channel>();
@@ -107,7 +113,7 @@ public class HomeController {
 		logger.debug("Calling searchInfluencer page");
 
 		ModelAndView view = new ModelAndView("searchInfluencer");
-		view.addObject("text", "너는 까까머리~");
+		
 		return view;
 	}
 
@@ -193,6 +199,27 @@ public class HomeController {
 
 		ModelAndView view = new ModelAndView("shop");
 		Shop shop = shopRepository.findShopById(shopId);
+		List<Product> products = productRepository.findByProviderId(shop.getProviderId());
+
+		List<String> productImages = new ArrayList<String>();
+		
+		List<Video> videos = new ArrayList<Video>();
+		
+		for(Product product : products) {
+			Video getVideo = videoRepository.findVideosByProductId(product.getId()).get(0);
+			videos.add(getVideo);
+			
+			StringTokenizer tokenizer = new StringTokenizer(product.getImageUrl(), "**");
+			
+			while(tokenizer.hasMoreTokens()) 
+				productImages.add(tokenizer.nextToken());
+			
+		}
+		
+		System.out.println(productImages);
+		
+		view.addObject("productImages", productImages);
+		view.addObject("videos", videos);
 		view.addObject("shop", shop);
 		return view;
 	}
@@ -203,6 +230,11 @@ public class HomeController {
 		logger.debug("Calling searchProvider page");
 
 		ModelAndView view = new ModelAndView("searchProvider");
+		
+		List<Shop> shops = shopRepository.findShopsByCity("서울시");
+		
+		view.addObject("shops", shops);
+		
 		view.addObject("text", "너는 까까머리~");
 		return view;
 	}

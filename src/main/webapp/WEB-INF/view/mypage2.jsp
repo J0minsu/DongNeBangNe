@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 
 <div class="mypage_wrap">
@@ -35,20 +37,40 @@
 		<div class="banner">
 			<img src="${shop.bannerImage }" alt="">
 		</div>
-		<div class="txt1">걸작떡볶이</div>
+		<div class="txt1">영상</div>
+
+		<div class="video_wrap">
+			<c:forEach var="nowVideo" items="${videos }">
+
+				<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+				<video id="video"></video>
+				<script>
+					if (Hls.isSupported()) {
+						var video = document.getElementById('video');
+						var hls = new Hls();
+						hls.loadSource('${nowVideo.url}');
+						hls.attachMedia(video);
+						hls.on(Hls.Events.MANIFEST_PARSED, function() {
+							video.play();
+						});
+					}
+				</script>
+
+			</c:forEach>
+		</div>
+		<br>
+		<br>
+		<div class="txt1">사진</div>
 
 		<div class="txt2">사진을 클릭하시면 크게 보실 수 있습니다!</div>
 
 		<div class="my_prd_list">
 			<ul>
-				<li><a href="#none"><img src="static/images/img_11.jpg"
-						alt=""></a></li>
-				<li><a href="#none"><img src="static/images/img_12.jpg"
-						alt=""></a></li>
-				<li><a href="#none"><img src="static/images/img_13.jpg"
-						alt=""></a></li>
-				<li><a href="#none"><img src="static/images/img_14.jpg"
-						alt=""></a></li>
+				<c:forEach var="productImage" items="${productImages }">
+						<li><img src="${productImage }" width="350" height="260"
+								alt=""></li>
+
+				</c:forEach>
 			</ul>
 		</div>
 		<div class="txt1">매장 위치</div>

@@ -39,15 +39,9 @@ public class Channel {
 	
 	@Column(name = "category_id")
 	private int categoryId;
-
-	@Column(name = "rating")
-	private float rating;
 	
 	@Column(name = "cost")
 	private int cost;
-	
-	@Column(name = "ER")
-	private float engagementRating;
 	
 	@Column(name = "addr_city")
 	private String city;
