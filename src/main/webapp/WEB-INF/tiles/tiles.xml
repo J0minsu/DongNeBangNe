@@ -35,6 +35,11 @@
 		<put-attribute name="title" value="매칭" />
 		<put-attribute name="body" value="/WEB-INF/view/matching.jsp" />
 	</definition>
+	
+	<definition name="createDocument" extends="base">
+		<put-attribute name="title" value="매칭신청" />
+		<put-attribute name="body" value="/WEB-INF/view/matching.jsp" />
+	</definition>
 
 	<definition name="contracting" extends="base">
 		<put-attribute name="title" value="매칭" />

@@ -12,10 +12,10 @@
 
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
-<link rel="stylesheet" href="static/css/xeicon.css">
-<link rel="stylesheet" href="static/css/style.css">
-<script type="text/javascript" src="static/js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="static/js/common.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/xeicon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common.js"></script>
 </head>
 
 
@@ -27,8 +27,8 @@
 					<li><a href="/recommendInfluencer">인플루언서</a></li>
 					<li><a href="/searchProvider">소상공인</a></li>
 					<li class="logo"><a href="/"><img
-							src="static/images/logo.png" alt=""></a></li>
-					<li><a href="/contracting">매칭</a></li>
+							src="${pageContext.request.contextPath}/static/images/logo.png" alt=""></a></li>
+					<li><a href="/contracting?providerId=3">매칭</a></li>
 					<li><a href="/">내정보</a></li>
 				</ul>
 			</div>

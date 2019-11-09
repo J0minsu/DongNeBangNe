@@ -69,6 +69,9 @@ public class Contract {
 	@Transient
 	private User provider;
 	
+	@Transient
+	private Channel channel;
+	
 	@PrePersist
 	public void createdContract() {
 		this.contractDate = LocalDateTime.now();
