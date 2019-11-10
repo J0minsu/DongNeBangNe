@@ -5,6 +5,12 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
 <!doctype html>
 
+<script>
+function create() {
+	
+}
+</script>
+
 <div class="matching_wrap">
 	<div class="gray_box">
 		<div class="creator">크리에이터를 위한 No.1 광고 매칭 솔루션</div>
@@ -40,11 +46,12 @@
 			</div>
 
 			<div class="input_wrap">
-				<sf:form action="/api/contracts" method="post" modelAttribute="contract">
+				<sf:form action="/contractDocument" method="POST" modelAttribute="contract">
 					<ul>
+						<sf:hidden path="id" id="id" value="${contract.id }"/>
+						<sf:hidden path="state" id="state" value="${contract.state }"/>
 						<sf:hidden path="influencerId" id="influencerId" value="${contract.influencerId }"/>
 						<sf:hidden path="providerId" id="providerId" value="${contract.providerId }"/>
-						<sf:hidden path="state" id="state" value="${contract.state + 1 }"/> 
 						<li><span class="subj">계약자(소상공인)</span>${contract.provider.name }</li>
 						<li><span class="subj">피계약자(인플루언서)</span>${contract.influencer.name }</li>
 						<li><span class="subj">방송횟수(회)</span>
@@ -60,24 +67,22 @@
 				<div class="submit_wrap" style="width:730px; height:30px;">
 					<c:choose>
 						<c:when test="${what eq 'create'}">
-							<a href="/api/contracts" class="btn_normal">신청</a>
-							<a href="#none" class="btn_submit">취소</a>
-						</c:when>
-						<c:when test="${what eq 'document'}">
-							<a href="#none" class="btn_normal">수락</a>
-							<a href="#none" class="btn_submit">거절</a>
+							<input type="submit" value="신청" class="btn_normal">
+							<a href="/channel?influencerId=${contract.influencerId }" class="btn_submit">취소</a>
 						</c:when>
 						<c:when test="${what eq 'contracting'}">
-							<a href="#none" class="btn_normal">확인</a>
+							<input type="submit" value="수락" class="btn_normal">
+							<a href="/contracting?providerId=3" class="btn_normal">확인</a>
 						</c:when>
 						<c:when test="${what eq 'success'}">
-							<a href="#none" class="btn_normal">신청</a>
-							<a href="#none" class="btn_submit">취소</a>
+							<input type="submit" value="계약 완료" class="btn_normal">
+							<a href="/successContract?providerId=3" class="btn_submit">취소</a>
 						</c:when>
 						<c:when test="${what eq 'end'}">
-							<a href="#none" class="btn_normal">확인</a>
+							<a href="/endContract?providerId=3" class="btn_normal">확인</a>
 						</c:when>
 					</c:choose>
+				</div>
 					</sf:form>
 				</div>
 			</div>

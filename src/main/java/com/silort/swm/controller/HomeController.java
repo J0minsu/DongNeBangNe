@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -142,55 +143,108 @@ public class HomeController {
 	}
 
 	@GetMapping(value = "createDocument")
-	public ModelAndView createDocument(@RequestParam("influencerId") int influencerId, @RequestParam("providerId") int providerId) {
+	public ModelAndView createDocument(@RequestParam("influencerId") int influencerId,
+			@RequestParam("providerId") int providerId) {
 		// he
 		logger.debug("Calling createDocument page");
 
 		ModelAndView view = new ModelAndView("createDocument");
-		
+
 		Contract contract = new Contract();
-		
+
 		Channel channel = channelRepository.findByUserId(influencerId);
 		channel.setUserProfileImg(userRepository.findUserById(influencerId).getProfileImage());
-	
+
 		User provider = userRepository.findUserById(providerId);
-		
+
 		User influencer = userRepository.findUserById(influencerId);
-	
-		
+
 		contract.setChannel(channel);
 		contract.setProvider(provider);
 		contract.setProviderId(providerId);
 		contract.setInfluencer(influencer);
 		contract.setInfluencerId(influencerId);
-		
+
 		String what = "create";
-		
+
 		view.addObject("what", what);
 		view.addObject("contract", contract);
 
+		System.out.println(view.toString());
+		
 		return view;
 	}
-	
+
 	@GetMapping(value = "contractDocument")
-	public ModelAndView contractDocumentController(@RequestParam("contractId") int contractId, @RequestParam("state") String state) {
+	public ModelAndView contractDocumentController(@RequestParam("contractId") int contractId,
+			@RequestParam("state") String state) {
 		// he
-		logger.debug("Calling contractDocument page");
+		logger.debug("Calling contractDocument.GET page");
 
 		ModelAndView view = new ModelAndView("contractDocument");
-		
+
 		Contract contract = contractRepository.findById(contractId);
-		
+
 		contract.setChannel(channelRepository.findByUserId(contract.getInfluencerId()));
-		contract.setProduct(productRepository.findById(contract.getProductId()));
 		contract.setProvider(userRepository.findUserById(contract.getProviderId()));
 		contract.setInfluencer(userRepository.findUserById(contract.getInfluencerId()));
 
 		String what = state;
-		
+
 		view.addObject("what", what);
 		view.addObject("contract", contract);
+
+		System.out.println("get : contractDocument 로그 분석  " + contract + "이것은 what의 내용 : " + what);
 		
+		return view;
+	}
+
+	@PostMapping(value = "contractDocument", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public ModelAndView contractDocument(Contract contract) {
+		// he
+		logger.debug("Calling contractDocument.POST page");
+
+		System.out.println("로그검사야 ㅇ이이" + contract);
+	
+		if (contract.getState() >= 0 && contract.getState() < 3)
+			contract.setState(contract.getState() + 1);
+
+		else
+			return null;
+
+		System.out.println("이것은 저장 후 컨트랙트의 상태 = " + contract);
+		
+		contractRepository.save(contract);
+		String viewName = "";
+		List<Contract> contracts = null;
+		switch (contract.getState()) {
+		case 1:
+			viewName = "contracting";
+			contracts = contractRepository.findByStateAndProviderId(1, contract.getProviderId());
+			break;
+		case 2:
+			viewName = "successContract";
+			contracts = contractRepository.findByStateAndProviderId(2, contract.getProviderId());
+			break;
+		case 3:
+			viewName = "endContract";
+			contracts = contractRepository.findByStateAndProviderId(3, contract.getProviderId());
+			break;
+		default:
+			break;
+		}
+		
+		setContract(contracts);
+		
+		ModelAndView view = new ModelAndView(viewName);
+
+		contract.setChannel(channelRepository.findByUserId(contract.getInfluencerId()));
+		contract.setProvider(userRepository.findUserById(contract.getProviderId()));
+		contract.setInfluencer(userRepository.findUserById(contract.getInfluencerId()));
+
+		//view.addObject("targetContract", contract);
+		view.addObject("contracts", contracts);
+
 		return view;
 	}
 
@@ -203,11 +257,9 @@ public class HomeController {
 
 		System.out.println("프로바이더아이디는 " + providerId);
 		List<Contract> contracts = contractRepository.findByStateAndProviderId(1, providerId);
-		
-		for(Contract contract : contracts)
 
-		System.out.println("계약 채결중인 매칭 수는 " + contracts.size());
-		
+			System.out.println("계약 채결중인 매칭 수는 " + contracts.size());
+
 		setContract(contracts);
 
 		view.addObject("contracts", contracts);
@@ -238,11 +290,10 @@ public class HomeController {
 		ModelAndView view = new ModelAndView("endContract");
 		List<Contract> contracts = contractRepository.findByStateAndProviderId(3, providerId);
 
-
 		System.out.println("계약 종료 매칭 수는 " + contracts.size());
-		
+
 		setContract(contracts);
-		
+
 		view.addObject("contracts", contracts);
 		return view;
 	}
@@ -265,32 +316,30 @@ public class HomeController {
 		String url = "http://15.164.16.139:8000/recommend/base/3";
 
 		HttpEntity<List<Integer>> entity = new HttpEntity<>(null);
-		
-		HttpEntity<String> response = restTemplate.exchange(
-		        url, 
-		        HttpMethod.GET, 
-		        entity, 
-		        String.class);
-		
+
+		HttpEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
 		JsonParser parser = new JsonParser();
-		JsonObject object = (JsonObject)parser.parse(response.getBody());
-		JsonArray jsonArray = (JsonArray)object.get("recommendations");
-		
-		//System.out.println("로그검사입니다. " + jsonArray + "이거는 제이슨어레이 내용 " + jsonArray.size());
-		
-		for(int i = 0; i < jsonArray.size(); i++) {
+		JsonObject object = (JsonObject) parser.parse(response.getBody());
+		JsonArray jsonArray = (JsonArray) object.get("recommendations");
+
+		// System.out.println("로그검사입니다. " + jsonArray + "이거는 제이슨어레이 내용 " +
+		// jsonArray.size());
+
+		for (int i = 0; i < jsonArray.size(); i++) {
 			Channel recoChannel = channelRepository.findById(jsonArray.get(i).getAsInt());
-			//System.out.println("채널은. = " + recoChannel + " 거기에 jsonArray 는 ?" + jsonArray.get(i).getAsInt());
+			// System.out.println("채널은. = " + recoChannel + " 거기에 jsonArray 는 ?" +
+			// jsonArray.get(i).getAsInt());
 			User recoUser = userRepository.findUserById(recoChannel.getUserId());
-			//System.out.println("레코유저. = " + recoUser);
+			// System.out.println("레코유저. = " + recoUser);
 			Reco reco = new Reco(recoUser.getId(), recoUser.getProfileImage());
 			recos.add(reco);
 		}
-		
+
 		ModelAndView view = new ModelAndView("channel");
-		
-		//System.out.println(recos);
-		
+
+		// System.out.println(recos);
+
 		view.addObject("recos", recos);
 		view.addObject("channel", channel);
 		view.addObject("influencer", influencer);
@@ -344,15 +393,14 @@ public class HomeController {
 		view.addObject("text", "너는 까까머리~");
 		return view;
 	}
-	
+
 	private List<Contract> setContract(List<Contract> contracts) {
-		
+
 		if (contracts.size() != 0) {
 			for (Contract contract : contracts) {
 				Channel channel = channelRepository.findByUserId(contract.getInfluencerId());
 				channel.setUserProfileImg(userRepository.findUserById(channel.getUserId()).getProfileImage());
 				contract.setChannel(channel);
-				contract.setProduct(productRepository.findById(contract.getProductId()));
 				contract.setInfluencer(userRepository.findUserById(contract.getInfluencerId()));
 			}
 		}

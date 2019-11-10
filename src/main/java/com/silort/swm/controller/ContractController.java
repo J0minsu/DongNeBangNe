@@ -92,11 +92,14 @@ public class ContractController {
 	}
 
 
-	@PostMapping
-	public ResponseEntity<Contract> postContract(@RequestBody Contract contract) {
+	@PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public ResponseEntity<Contract> postContract(Contract contract) {
 		logger.debug("Calling postContract( )");
 
-		contract.setState(1);
+		if(contract.getId() == 0) {
+			contract.setState(1);	
+		}
+		
 		contractRepository.save(contract);
 		
 		setContract(contract);
