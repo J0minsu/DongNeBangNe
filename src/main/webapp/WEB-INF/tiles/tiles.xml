@@ -40,6 +40,11 @@
 		<put-attribute name="title" value="매칭신청" />
 		<put-attribute name="body" value="/WEB-INF/view/matching.jsp" />
 	</definition>
+	
+	<definition name="deleteContract" extends="base">
+		<put-attribute name="title" value="매칭거절" />
+		<put-attribute name="body" value="/WEB-INF/view/matching_01.jsp" />
+	</definition>
 
 	<definition name="contracting" extends="base">
 		<put-attribute name="title" value="매칭" />

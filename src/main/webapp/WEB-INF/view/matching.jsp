@@ -73,6 +73,7 @@ function create() {
 						<c:when test="${what eq 'contracting'}">
 							<input type="submit" value="수락" class="btn_normal">
 							<a href="/contracting?providerId=3" class="btn_normal">확인</a>
+							<a href="/deleteContract?contractId=${contract.id }" class="btn_normal">거절</a>
 						</c:when>
 						<c:when test="${what eq 'success'}">
 							<input type="submit" value="계약 완료" class="btn_normal">

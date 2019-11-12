@@ -6,7 +6,7 @@
 
 <div class="matching_wrap">
 	<div class="gray_box">
-		<div class="creator">크리에이터를 위한 No.1 광고 매칭 솔루션</div>
+		<div class="creator">소상공인을 위한 No.1 광고 매칭 솔루션</div>
 
 		<div class="tab_a">
 			<ul>

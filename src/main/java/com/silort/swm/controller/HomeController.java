@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,8 @@ import com.silort.swm.repo.ProductRepository;
 import com.silort.swm.repo.ShopRepository;
 import com.silort.swm.repo.UserRepository;
 import com.silort.swm.repo.VideoRepository;
+
+import lombok.Delegate;
 
 @RestController
 @RequestMapping(value = "/")
@@ -171,7 +174,7 @@ public class HomeController {
 		view.addObject("contract", contract);
 
 		System.out.println(view.toString());
-		
+
 		return view;
 	}
 
@@ -195,7 +198,7 @@ public class HomeController {
 		view.addObject("contract", contract);
 
 		System.out.println("get : contractDocument 로그 분석  " + contract + "이것은 what의 내용 : " + what);
-		
+
 		return view;
 	}
 
@@ -205,7 +208,7 @@ public class HomeController {
 		logger.debug("Calling contractDocument.POST page");
 
 		System.out.println("로그검사야 ㅇ이이" + contract);
-	
+
 		if (contract.getState() >= 0 && contract.getState() < 3)
 			contract.setState(contract.getState() + 1);
 
@@ -213,7 +216,7 @@ public class HomeController {
 			return null;
 
 		System.out.println("이것은 저장 후 컨트랙트의 상태 = " + contract);
-		
+
 		contractRepository.save(contract);
 		String viewName = "";
 		List<Contract> contracts = null;
@@ -233,16 +236,15 @@ public class HomeController {
 		default:
 			break;
 		}
-		
+
 		setContract(contracts);
-		
+
 		ModelAndView view = new ModelAndView(viewName);
 
 		contract.setChannel(channelRepository.findByUserId(contract.getInfluencerId()));
 		contract.setProvider(userRepository.findUserById(contract.getProviderId()));
 		contract.setInfluencer(userRepository.findUserById(contract.getInfluencerId()));
 
-		//view.addObject("targetContract", contract);
 		view.addObject("contracts", contracts);
 
 		return view;
@@ -255,15 +257,37 @@ public class HomeController {
 
 		ModelAndView view = new ModelAndView("contracting");
 
-		System.out.println("프로바이더아이디는 " + providerId);
 		List<Contract> contracts = contractRepository.findByStateAndProviderId(1, providerId);
-
-			System.out.println("계약 채결중인 매칭 수는 " + contracts.size());
 
 		setContract(contracts);
 
 		view.addObject("contracts", contracts);
 		return view;
+	}
+
+	@GetMapping("/deleteContract")
+	public ModelAndView deleteContract(@RequestParam("contractId") int contractId) {
+
+		logger.debug("Calling deleteContract page");
+
+		ModelAndView view = new ModelAndView("deleteContract");
+
+		Contract contract = contractRepository.findById(contractId);
+		
+		contractRepository.delete(contract);
+		
+		if (contract.getState() != 1) {
+			return null;
+		}
+		else {
+			
+			List<Contract> contracts = contractRepository.findByStateAndProviderId(1, contract.getProviderId());
+				setContract(contracts);
+
+			view.addObject("contracts", contracts);
+			
+			return view;
+		}
 	}
 
 	@GetMapping(value = "successContract")
@@ -276,8 +300,6 @@ public class HomeController {
 
 		setContract(contracts);
 
-		System.out.println("계약 완료 매칭 수는 " + contracts.size());
-
 		view.addObject("contracts", contracts);
 		return view;
 	}
@@ -289,8 +311,6 @@ public class HomeController {
 
 		ModelAndView view = new ModelAndView("endContract");
 		List<Contract> contracts = contractRepository.findByStateAndProviderId(3, providerId);
-
-		System.out.println("계약 종료 매칭 수는 " + contracts.size());
 
 		setContract(contracts);
 
@@ -323,22 +343,16 @@ public class HomeController {
 		JsonObject object = (JsonObject) parser.parse(response.getBody());
 		JsonArray jsonArray = (JsonArray) object.get("recommendations");
 
-		// System.out.println("로그검사입니다. " + jsonArray + "이거는 제이슨어레이 내용 " +
-		// jsonArray.size());
-
 		for (int i = 0; i < jsonArray.size(); i++) {
 			Channel recoChannel = channelRepository.findById(jsonArray.get(i).getAsInt());
-			// System.out.println("채널은. = " + recoChannel + " 거기에 jsonArray 는 ?" +
-			// jsonArray.get(i).getAsInt());
+
 			User recoUser = userRepository.findUserById(recoChannel.getUserId());
-			// System.out.println("레코유저. = " + recoUser);
+
 			Reco reco = new Reco(recoUser.getId(), recoUser.getProfileImage());
 			recos.add(reco);
 		}
 
 		ModelAndView view = new ModelAndView("channel");
-
-		// System.out.println(recos);
 
 		view.addObject("recos", recos);
 		view.addObject("channel", channel);
