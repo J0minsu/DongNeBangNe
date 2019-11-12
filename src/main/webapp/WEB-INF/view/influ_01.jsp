@@ -39,7 +39,7 @@
 				<dd>
 					<div class="info">
 						<div class="thumb">
-							<a href="/channel?influencerId=${channel.id}" class ="gtm" onclick="dataLayer.push({'category': 'Search List', 'action': 'View Details Click', 'label' :'${channel.id}'});"><img
+							<a href="/channel?influencerId=${channel.id}" class ="gtm" onclick="dataLayer.push({'category': 'Search List', 'action': 'DetailView Click', 'label' :'${channel.id}'});"><img
 								src="${channel.userProfileImg}" alt="" width="300" height="220"></a>
 						</div>
 						<div class="desc">

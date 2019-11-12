@@ -22,12 +22,14 @@
 		<div class="influ_wrap">
 			<div class="search_submit">
 				<a
-					href="/createDocument?influencerId=${influencer.id }&providerId=3">매칭
+					href="/createDocument?influencerId=${influencer.id }&providerId=3"
+					class ="gtm" onclick="dataLayer.push({'category': 'Channel Detail', 'action': 'Contract icon Click', 'label' :'${channel.id}'});">매칭
 					신청</a>
 			</div>
 			<div class="search_submit">
 				<a
-					href="#none">문의하기</a>
+					href="#none" class ="gtm" 
+					onclick="dataLayer.push({'category': 'Channel Detail', 'action': 'Contact icon Click', 'label' :'${channel.id}'})">문의하기</a>
 			</div>
 		</div>
 	</div>
