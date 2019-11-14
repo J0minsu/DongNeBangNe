@@ -44,6 +44,9 @@ public class Gifticon {
 	@Column(name = "user_id")
 	private int userId;
 	
+	@Column(name = "image")
+	private int image;
+	
 	@Transient
 	private String text;
 	

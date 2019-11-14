@@ -333,7 +333,8 @@ public class HomeController {
 
 		List<Reco> recos = new ArrayList<Reco>();
 
-		String url = "http://15.164.16.139:8000/recommend/base/3";
+		//:5000/recommend/info-based/{provider_user_id}
+		String url = "http://15.164.16.139:5000/recommend/info-based/3";
 
 		HttpEntity<List<Integer>> entity = new HttpEntity<>(null);
 
@@ -348,6 +349,13 @@ public class HomeController {
 
 			User recoUser = userRepository.findUserById(recoChannel.getUserId());
 
+			if(recoUser == null) {
+				
+				recoUser = new User();
+				recoUser.setId(49);
+				recoUser.setProfileImage("a");
+				
+			}
 			Reco reco = new Reco(recoUser.getId(), recoUser.getProfileImage());
 			recos.add(reco);
 		}

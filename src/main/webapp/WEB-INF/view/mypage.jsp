@@ -67,7 +67,7 @@
 			<ul>
 
 				<c:forEach var="reco" items="${recos }">
-					<li><a href = "/channel?channelId=${reco.id }"><img src="${reco.imgUrl }" width="250" height="180"
+					<li><a href = "/channel?influencerId=${reco.id }"><img src="${reco.imgUrl }" width="180" height="300"
 						alt=""></a></li>
 
 				</c:forEach>
