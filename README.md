@@ -1,10 +1,12 @@
 # DongNeBangNe Server
 
-##소스코드 설명
+## 소스코드 설명
 
 DongNeBangNe Server 는 Springboot 환경에서 제작되었고, 철저한 MVC 패턴을 유지하고 있다.
-AWS EC2에 패키징되어 배포되고있다.
-
+AWS EC2에 패키징되어 배포되고있으며 REST API 로 구축하였다.
+웹페이지 관리는 Apache tiles 를 사용하였으며 이 후 Ajax 로 교체 예정이다.
+EC2의 별도의 Database 서버와 연결하였다.
+보안상의 이유로 application.properties 는 배포하지 않는다
 
 ## IDE
 - STS 4.0
@@ -26,6 +28,9 @@ AWS EC2에 패키징되어 배포되고있다.
 
 ## Structure<br>
 <img src="./images/architecture.png" width="80%" height="80%"></img>
+
+## UML<br>
+<img src="./images/UML.png" width="80%" height="80%"></img>
 
 
 ## Code Description<br>
@@ -53,7 +58,7 @@ AWS EC2에 패키징되어 배포되고있다.
 
 ## Issues
 >MySQL Cascade
->>정보 수정 시 수정되지 말아야 할 [ ex)로그 Table ] 도 함께 바뀌는 문제 발생
+>>정보 수정 시 수정되지 말아야 할 [ ex)로그 Table ] 부분도 함께 바뀌는 문제 발생
 >>>mysql의 제공하지않는 cascade 문제로 인해 모든 테이블의 연관관계를 끊고 일일히 수정
 
 >JPA
@@ -63,3 +68,7 @@ AWS EC2에 패키징되어 배포되고있다.
 >JPA
 >>Date Type의 컬럼을 '>', '<', contains 할 수 없는 문제 발생
 >>>JPA 측에서 제공해주는 Date type의 컬럼 비교 메소드를 이용
+
+>Tiles
+>>여러 개의 웹페이지에 중복되는 코드가 다수 존재
+>>>Apache Tiles 를 적용시켜 코드의 중복성을 낮췄다.
