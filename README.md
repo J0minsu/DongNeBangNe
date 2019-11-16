@@ -3,6 +3,8 @@
 ##소스코드 설명
 
 DongNeBangNe Server 는 Springboot 환경에서 제작되었고, 철저한 MVC 패턴을 유지하고 있다.
+AWS EC2에 패키징되어 배포되고있다.
+
 
 ## IDE
 - STS 4.0
