@@ -45,7 +45,7 @@ public class Gifticon {
 	private int userId;
 	
 	@Column(name = "image")
-	private int image;
+	private String image;
 	
 	@Transient
 	private String text;
