@@ -98,7 +98,7 @@ public class HomeController {
 			Channel recoChannel = channelRepository.findById(jsonArray.get(i).getAsInt());
 			User user = userRepository.findUserById(recoChannel.getUserId());
 			List<Contract> contracts = contractRepository.findByInfluencerId(user.getId());
-			
+
 			if (contracts.size() != 0) {
 				for (Contract contract : contracts)
 					totalContractFee += contract.getPrice();
@@ -109,7 +109,6 @@ public class HomeController {
 
 			recoChannel.setUserProfileImg(user.getProfileImage());
 
-			
 			recommendChannel.add(recoChannel);
 		}
 
@@ -272,19 +271,18 @@ public class HomeController {
 		ModelAndView view = new ModelAndView("deleteContract");
 
 		Contract contract = contractRepository.findById(contractId);
-		
+
 		contractRepository.delete(contract);
-		
+
 		if (contract.getState() != 1) {
 			return null;
-		}
-		else {
-			
+		} else {
+
 			List<Contract> contracts = contractRepository.findByStateAndProviderId(1, contract.getProviderId());
-				setContract(contracts);
+			setContract(contracts);
 
 			view.addObject("contracts", contracts);
-			
+
 			return view;
 		}
 	}
@@ -321,10 +319,19 @@ public class HomeController {
 	public ModelAndView channelController(@RequestParam("influencerId") int influencerId) {
 		logger.debug("Calling channel page");
 
+		ModelAndView view = new ModelAndView("channel");
 		Channel channel = channelRepository.findByUserId(influencerId);
 		User influencer = userRepository.findUserById(influencerId);
 		Video video = videoRepository.findVideoById(channel.getRepresentVideo());
+
 		RestTemplate restTemplate = new RestTemplate();
+		HttpEntity<List<Integer>> entity = new HttpEntity<>(null);
+		HttpEntity<String> response;
+		JsonParser parser = new JsonParser();
+		JsonObject object;
+		JsonArray jsonArray;
+
+		String url = "";
 		influencer.setBalance(0);
 		influencer.setPassword(null);
 
@@ -332,34 +339,110 @@ public class HomeController {
 
 		List<Reco> recos = new ArrayList<Reco>();
 
-		//:5000/recommend/info-based/{provider_user_id}
-		String url = "http://15.164.16.139:5000/recommend/info-based/3";
+		// :5000//report/channel-report/{ch_id}/{shop_id} 그래프 내용 채워넣기
+		url = "http://15.164.16.139:5000/report/channel-report/" + channel.getId() + "/3";
+		System.out.println("추천 API 에 들어가는 URL 은? " + url);
+		response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
-		HttpEntity<List<Integer>> entity = new HttpEntity<>(null);
+		object = (JsonObject) parser.parse(response.getBody());
 
-		HttpEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+		// ---
+		jsonArray = (JsonArray) object.get("gender");
 
-		JsonParser parser = new JsonParser();
-		JsonObject object = (JsonObject) parser.parse(response.getBody());
-		JsonArray jsonArray = (JsonArray) object.get("recommendations");
+		for (int i = 0; i < jsonArray.size(); i++) {
+			String text = String.format("gender%d", i + 1);
+			view.addObject(text, jsonArray.get(i).getAsInt());
+		}
+		// ---/
+
+		// ---
+		jsonArray = (JsonArray) object.get("age");
+
+		for (int i = 0; i < jsonArray.size(); i++) {
+			String text = String.format("age%d", i + 1);
+			view.addObject(text, jsonArray.get(i).getAsInt());
+		}
+		// ---/
+
+		// ---
+		jsonArray = (JsonArray) object.get("rating");
+
+		for (int i = 0; i < jsonArray.size(); i++) {
+			String text = String.format("rating%d", i + 1);
+			view.addObject(text, jsonArray.get(i).getAsFloat());
+		}
+		// ---/
+
+		// ---
+		jsonArray = (JsonArray) object.get("category_cnt");
+
+		for (int i = 0; i < jsonArray.size(); i++) {
+			String text = String.format("cnt%d", i + 1);
+			view.addObject(text, jsonArray.get(i).getAsInt());
+		}
+		// ---/
+
+		// ---
+		jsonArray = (JsonArray) object.get("view");
+
+		for (int i = 0; i < jsonArray.size(); i++) {
+			String text = String.format("view%d", i + 1);
+			view.addObject(text, jsonArray.get(i).getAsInt());
+		}
+		// ---/
+
+		// ---
+		jsonArray = (JsonArray) object.get("chat");
+
+		for (int i = 0; i < jsonArray.size(); i++) {
+			String text = String.format("chat%d", i + 1);
+			view.addObject(text, jsonArray.get(i).getAsInt());
+		}
+		// ---/
+
+		// ---
+		jsonArray = (JsonArray) object.get("buy");
+
+		for (int i = 0; i < jsonArray.size(); i++) {
+			String text = String.format("buy%d", i + 1);
+			view.addObject(text, jsonArray.get(i).getAsInt());
+		}
+		// ---/
+
+		// ---
+		jsonArray = (JsonArray) object.get("er");
+
+		for (int i = 0; i < jsonArray.size(); i++) {
+			String text = String.format("er%d", i + 1);
+			view.addObject(text, jsonArray.get(i).getAsInt());
+		}
+		// ---/
+		
+		view.addObject("category", object.get("category"));
+
+		// :5000/recommend/info-based/{provider_user_id} 인플루언서 추천 파트
+		url = "http://15.164.16.139:5000/recommend/info-based/3";
+
+		response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+		object = (JsonObject) parser.parse(response.getBody());
+		jsonArray = (JsonArray) object.get("recommendations");
 
 		for (int i = 0; i < jsonArray.size(); i++) {
 			Channel recoChannel = channelRepository.findById(jsonArray.get(i).getAsInt());
 
 			User recoUser = userRepository.findUserById(recoChannel.getUserId());
 
-			if(recoUser == null) {
-				
+			if (recoUser == null) {
+
 				recoUser = new User();
 				recoUser.setId(49);
 				recoUser.setProfileImage("a");
-				
+
 			}
 			Reco reco = new Reco(recoUser.getId(), recoUser.getProfileImage());
 			recos.add(reco);
 		}
-
-		ModelAndView view = new ModelAndView("channel");
 
 		view.addObject("recos", recos);
 		view.addObject("channel", channel);
@@ -383,7 +466,7 @@ public class HomeController {
 
 		for (Product product : products) {
 			Video getVideo = videoRepository.findVideosByProductId(product.getId()).get(0);
-			
+
 			videos.add(getVideo);
 
 			StringTokenizer tokenizer = new StringTokenizer(product.getImageUrl(), "**");

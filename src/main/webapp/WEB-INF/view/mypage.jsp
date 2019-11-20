@@ -6,16 +6,16 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/reportForm.js"></script>
 <script>
-	var ch_gender = [53,47];
-	var ch_age = [23,27,20,20,10,0];
+	var ch_gender = [${gender1},${gender2}];
+	var ch_age = [${age1},${age2},${age3},${age4},${age5},${age6}];
 	var ch_grow = [100,120,200,300];
-	var shop_category = '음식';
-	//var ch_cate =[0,0,0,0,0,0,0,0];
-	var ch_rating = [4.2,0.8];
-	var ch_view= [300,360,380];
-	var ch_chat= [260,500,600];
-	var ch_buy = [30,50,60];
-	var ch_er = [10,14,17];
+	var shop_category = ${category};
+	var ch_cate =[${cnt1}, ${cnt2}];
+	var ch_rating = [${rating1},${rating1}];
+	var ch_view= [${view1},${view2},${view3}];
+	var ch_chat= [${chat1},${chat2},${chat3}];
+	var ch_buy = [${buy1},${buy2},${buy3}];
+	var ch_er = [${er1},${er2},${er3}];
 </script>
 <div class="mypage_wrap">
 
