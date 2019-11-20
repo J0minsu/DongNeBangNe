@@ -1,5 +1,5 @@
 
-var categoryData ={
+var categoryCntData ={
 		labels : [ "갯수"],
 		datasets : [
 				{
