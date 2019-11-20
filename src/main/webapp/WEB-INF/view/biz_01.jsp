@@ -3,16 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 
+<div class="top_ban">
+	<img src="static/images/top_ban_02.jpg" alt="">
+</div>
 
+	<div class="influ_wrap">
 
-<div class="biz_wrap">
-	<div class="gray_box">
-		<div class="creator">크리에이터를 위한 No.1 광고 매칭 솔루션</div>
-		<div class="box">소상공인 검색</div>
-	</div>
-
-
-	<div class="biz_info">
+	<div class="biz_wrap biz_info">
 		<div class="btitle">소상공인 기본 정보</div>
 
 
@@ -51,10 +48,10 @@
 
 
 
-	<div class="biz_list">
+	<div class="influ_list">
 		<dl>
 			<c:forEach var="shop" items="${shops }">
-				<dd>
+				<%-- 				<dd>
 					<div class="info">
 						<div class="thumb">
 							<a href="/shop?shopId=${shop.id}"><img
@@ -67,6 +64,22 @@
 								<li>팔로우수: ${shop.followerNumber}</li>
 								<li>${shop.description }</li>
 							</ul>
+						</div>
+					</div>
+				</dd>
+				 --%>
+				<dd>
+					<div class="influ_wrap influ_list info">
+						<div class="thumb">
+							<a href="/shop?shopId=${shop.id}"><img
+								src="${shop.profileImage}" alt="" width="300" height="220"></a>
+							<!-- src 에 크기 조절 width="300" height="220" -->
+						</div>
+						<div class="desc">
+							<div class="iname">${shop.city }${shop.gu }${shop.dong }
+								${shop.detail }</div>
+							<div class="iname2">${shop.name}</div>
+							<span>상세 조건</span>${shop.description }
 						</div>
 					</div>
 				</dd>

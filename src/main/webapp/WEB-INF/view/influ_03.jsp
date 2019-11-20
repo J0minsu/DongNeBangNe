@@ -3,6 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 
+<div class="top_ban">
+	<img src="static/images/top_ban_01.jpg" alt="">
+</div>
+
 <div class="influ_wrap">
 
 	<div class="gray_box">
@@ -41,18 +45,23 @@
 				<dd>
 					<div class="info">
 						<div class="thumb">
-							<a href="/shop?shopId=${noticeBoard.shopId}">
-							<img width="300" height="220" src="${noticeBoard.shop.profileImage }" alt="">
-							</a>
+							<a href="/shop?shopId=${noticeBoard.shopId}"><img
+								src="${noticeBoard.shop.profileImage }" alt=""
+								></a>
+							<!-- src 에 크기 조절 width="300" height="300" -->
 						</div>
 						<div class="desc">
-							<ul>
-								${noticeBoard.description }
-							</ul>
+							<div class="iname">${noticeBoard.shop.city} ${noticeBoard.shop.gu}
+								${noticeBoard.shop.dong} ${noticeBoard.shop.detail }</div>
+							<div class="iname2">${noticeBoard.shop.name }</div>
+							<span>상세 조건</span>${noticeBoard.description }
+							<div class="conts">
+								<span>컨텐츠</span>방문해서 먹방
+							</div>
 						</div>
 					</div>
 				</dd>
-				</c:forEach>
+			</c:forEach>
 		</dl>
 
 		<div class="pagination">

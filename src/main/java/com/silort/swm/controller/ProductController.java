@@ -85,7 +85,9 @@ public class ProductController {
 
 		logger.debug("Calling getCategoryProduct");
 
-		List<Product> list = productRepository.findByCategoryId(categoryId);
+		int first = categoryId * 100000;
+		int end = first + 99999;
+		List<Product> list = productRepository.findProductByCategoryIdBetween(first, end);
 
 		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
 

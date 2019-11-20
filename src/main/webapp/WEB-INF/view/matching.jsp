@@ -5,6 +5,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
 <!doctype html>
 
+	<div class="top_ban"><img src="${pageContext.request.contextPath}/static/images/top_ban_03.jpg" alt=""></div>
+
 <script>
 function create() {
 	
@@ -26,6 +28,8 @@ function create() {
 						src="${contract.influencer.profileImage }" alt="" width="300"
 						height="250"><span class="heart"><i class="xi-heart"></i></span></a>
 				</div>
+				
+				<div class="inf_id">${contract.channel.name }</div>
 
 				<ul>
 					<li>지역: ${contract.channel.city } ${contract.channel.city }
@@ -40,8 +44,8 @@ function create() {
 				</ul>
 
 				<div class="desc">
-					<div>${contract.channel.broadcastType }</div>
-					<div>팔로워 수 : ${contract.channel.followerNumber }</div>
+					<div>컨텐츠 카테고리: ${contract.channel.broadcastType }</div>
+						<div class="follow">팔로워 수 : ${contract.channel.followerNumber }</div>
 				</div>
 			</div>
 

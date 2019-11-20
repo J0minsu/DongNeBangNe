@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,8 +36,6 @@ import com.silort.swm.repo.ProductRepository;
 import com.silort.swm.repo.ShopRepository;
 import com.silort.swm.repo.UserRepository;
 import com.silort.swm.repo.VideoRepository;
-
-import lombok.Delegate;
 
 @RestController
 @RequestMapping(value = "/")
@@ -83,35 +80,37 @@ public class HomeController {
 		logger.debug("Calling recommendInfluencer page");
 
 		ModelAndView view = new ModelAndView("recommendInfluencer");
-
-		// 추천 서버의 알고리즘을 거쳐 influencer channel 정보 List type으로 가져온다.
-
-		// ->
-		// dummy
-		List<Integer> recommendInfluencerList = new ArrayList<Integer>();
-		for (int i = 1; i < 10; i++)
-			recommendInfluencerList.add(i);
-		// end dummy
-
 		List<Channel> recommendChannel = new ArrayList<Channel>();
+		// 추천 서버의 알고리즘을 거쳐 influencer channel 정보 List type으로 가져온다.
+		RestTemplate restTemplate = new RestTemplate();
+		String url = "http://15.164.16.139:5000/recommend/info-based/3";
 
-		for (int i : recommendInfluencerList) {
-			Channel channel = channelRepository.findById(i);
-			User user = userRepository.findUserById(channel.getUserId());
-			List<Contract> contracts = contractRepository.findByInfluencerId(i);
+		HttpEntity<List<Integer>> entity = new HttpEntity<>(null);
+
+		HttpEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+		JsonParser parser = new JsonParser();
+		JsonObject object = (JsonObject) parser.parse(response.getBody());
+		JsonArray jsonArray = (JsonArray) object.get("recommendations");
+
+		for (int i = 0; i < jsonArray.size(); i++) {
 			int totalContractFee = 0;
-
+			Channel recoChannel = channelRepository.findById(jsonArray.get(i).getAsInt());
+			User user = userRepository.findUserById(recoChannel.getUserId());
+			List<Contract> contracts = contractRepository.findByInfluencerId(user.getId());
+			
 			if (contracts.size() != 0) {
 				for (Contract contract : contracts)
 					totalContractFee += contract.getPrice();
 
-				channel.setAverageContractFee(totalContractFee / contracts.size());
-				channel.setTotalContractNumber(contracts.size());
+				recoChannel.setAverageContractFee(totalContractFee / contracts.size());
+				recoChannel.setTotalContractNumber(contracts.size());
 			}
 
-			channel.setUserProfileImg(user.getProfileImage());
+			recoChannel.setUserProfileImg(user.getProfileImage());
 
-			recommendChannel.add(channelRepository.findById(i));
+			
+			recommendChannel.add(recoChannel);
 		}
 
 		view.addObject("channels", recommendChannel);
@@ -384,6 +383,7 @@ public class HomeController {
 
 		for (Product product : products) {
 			Video getVideo = videoRepository.findVideosByProductId(product.getId()).get(0);
+			
 			videos.add(getVideo);
 
 			StringTokenizer tokenizer = new StringTokenizer(product.getImageUrl(), "**");

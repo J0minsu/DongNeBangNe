@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 
+<div class="top_ban"><img src="static/images/top_ban_01.jpg" alt=""></div>
+
 <div class="influ_wrap">
 
 	<div class="gray_box">
@@ -40,23 +42,24 @@
 					<div class="info">
 						<div class="thumb">
 							<a href="/channel?influencerId=${channel.id}" class ="gtm" onclick="dataLayer.push({'category': 'Search List', 'action': 'DetailView Click', 'label' :'${channel.id}'});"><img
-								src="${channel.userProfileImg}" alt="" width="300" height="220"></a>
+								src="${channel.userProfileImg}" alt=""></a>
+								<!-- src 에 크기 조절 width="300" height="220" -->
 						</div>
 						<div class="desc">
-							<ul>
-								<li>활동명 : ${channel.name }</li>
-								<li>활동지역: ${channel.city} ${channel.gu} ${channel.dong}</li>
-								<li>컨텐츠 형태: ${channel.broadcastType}</li>
-								<li>팔로우수: ${channel.followerNumber}</li>
-								<c:if test="${channel.totalContractNumber ne 0}">
-									<li>총 계약건수: ${channel.totalContractNumber}</li>
-									<li>평균 계약금: ${channel.averageContractFee}</li>
+								<div class="iname">${channel.city} ${channel.gu} ${channel.dong}</div>
+								<div class="iname2">${channel.name }</div>
+								<ul>
+									<li><span>팔로워</span>${channel.followerNumber}</li>
+									<c:if test="${channel.totalContractNumber ne 0}">
+									<li><span>평균계약금</span>${channel.averageContractFee}</li>
 								</c:if>
 								<c:if test="${channel.totalContractNumber eq 0}">
-									<li>계약 이력이 없습니다!</li>
-									<li>추천해드리는 금액은 ${channel.cost} 원 입니다</li>
-								</c:if>
-							</ul>
+								<li><span>추천계약금</span>${channel.cost}</li>
+								</c:if>	
+								</ul>
+								<div class="conts">
+								<span>컨텐츠</span>${channel.broadcastType}						
+								</div>
 						</div>
 					</div>
 				</dd>

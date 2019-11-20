@@ -4,6 +4,7 @@
 
 <!doctype html>
 
+<div class="top_ban"><img src="static/images/top_ban_01.jpg" alt=""></div>
 
 	<div class="influ_wrap">
 

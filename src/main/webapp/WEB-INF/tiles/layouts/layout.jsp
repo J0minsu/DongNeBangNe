@@ -31,19 +31,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 <div class="site_wrap">
-	<div>
+
 		<div class="header_wrap">
 			<div class="header">
 				<ul class="nav">
-					<li><a href="/recommendInfluencer">인플루언서</a></li>
-					<li><a href="/searchProvider">소상공인</a></li>
 					<li class="logo"><a href="/"><img
 							src="${pageContext.request.contextPath}/static/images/logo.png" alt=""></a></li>
+					<li><a href="/recommendInfluencer">인플루언서</a></li>
+					<li><a href="/searchProvider">소상공인</a></li>
 					<li><a href="/contracting?providerId=3">매칭</a></li>
 					<li><a href="/">내정보</a></li>
 				</ul>
 			</div>
 		</div>
+		
 		<!-- Google Tag Manager (noscript) -->
 		<noscript>
 			<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRWWSG4"
