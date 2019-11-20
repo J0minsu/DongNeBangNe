@@ -10,8 +10,8 @@
 	var ch_age = [${age1},${age2},${age3},${age4},${age5},${age6}];
 	var ch_grow = [100,120,200,300];
 	var shop_category = ${category};
-	var ch_cate =[${cnt1}, ${cnt2}];
-	var ch_rating = [${rating1},${rating1}];
+	var category_cnt =[${cnt1}, ${cnt2}];
+	var ch_rating = [${rating1}, ${rating1}];
 	var ch_view= [${view1},${view2},${view3}];
 	var ch_chat= [${chat1},${chat2},${chat3}];
 	var ch_buy = [${buy1},${buy2},${buy3}];
@@ -90,8 +90,10 @@
 	
 	<script>
 		var ctx = document.getElementById("cate").getContext('2d');
-		var cate = new Chart(ctx,{type:'horizontalBar', data:categoryData, options: options});
+		var cate = new Chart(ctx,{type:'horizontalBar', data:categoryCntData, options: options});
 		cate.options.title.text ='광고이력';
+		cate.data.datasets[0].data =[category_cnt[0]];
+		cate.data.datasets[1].data =[category_cnt[1]];
 		cate.options.scales.xAxes[0].ticks.display = false;
 		cate.options.scales.xAxes[0].stacked= true;
 		cate.options.scales.yAxes[0].stacked= true;
@@ -100,9 +102,12 @@
 		var ctx5 = document.getElementById("rating").getContext('2d');
 		var rating = new Chart(ctx5,{type:'horizontalBar', data:ratingData, options: options});
 		rating.options.title.text ='평점';
+		rating.data.datasets[0].data= [ch_rating[0]];
+		rating.data.datasets[1].data= [ch_rating[1]];
 		rating.options.scales.xAxes[0].ticks.display = false;
 		rating.options.scales.xAxes[0].stacked= true;
 		rating.options.scales.yAxes[0].stacked= true;
+		rating.update();
 		//rating.update();
 		
 		var ctx1 = document.getElementById("view").getContext('2d');
@@ -152,9 +157,7 @@
 		grow.data.datasets[0].data= ch_grow;
 		grow.update();
 		
-		rating.data.datasets[0].data= [ch_rating[0]];
-		rating.data.datasets[1].data= [ch_rating[1]];
-		rating.update();
+		
 		
 		view.data.datasets[0].data= ch_view;
 		view.update();
