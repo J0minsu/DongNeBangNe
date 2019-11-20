@@ -51,7 +51,6 @@
 		<div class="banner">
 			<img src="${channel.bannerImage }" alt="">
 		</div>
-		<div style="height:200px"></div>
 		<div class ='follower_report' style="border:1px solid lightgray; width:800px">
 	<h2>&nbsp;&nbsp;&nbsp;팔로워 분석</h2><br>
 	<div style='float:left; width:260px; height:200px;'>

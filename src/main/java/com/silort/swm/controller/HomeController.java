@@ -421,7 +421,7 @@ public class HomeController {
 		view.addObject("category", object.get("category"));
 
 		// :5000/recommend/info-based/{provider_user_id} 인플루언서 추천 파트
-		url = "http://15.164.16.139:5000/recommend/info-based/3";
+		url = "http://15.164.16.139:5000/recommend/similar-influencer/" + channel.getId();
 
 		response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
